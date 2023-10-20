@@ -1,0 +1,26 @@
+:host {
+    display: block;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 50px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none;
+    background: white;
+
+    &:hover {
+        border: 1px solid #b4b4b4;
+    }
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.description {
+    line-height: 150%;
+    margin-top: 20px;
+}

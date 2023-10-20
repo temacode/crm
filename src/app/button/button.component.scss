@@ -1,0 +1,14 @@
+:host {
+    display: inline-block;
+    outline: none;
+    background: #4f5f82;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: 0.3s;
+
+    &:hover {
+        background: #4d5462;
+    }
+}

@@ -1,0 +1,8 @@
+<ng-container *ngIf="tasks$ | async as tasks">
+    <ng-container *ngFor="let column of columns$ | async">
+        <app-kanban-column
+            [column]="column"
+            [tasks]="tasks"
+        ></app-kanban-column>
+    </ng-container>
+</ng-container>
