@@ -1,8 +1,15 @@
-<ng-container *ngIf="tasks$ | async as tasks">
-    <ng-container *ngFor="let column of columns$ | async">
-        <app-kanban-column
-            [column]="column"
-            [tasks]="tasks"
-        ></app-kanban-column>
+<app-header></app-header>
+<div class="controls">
+    <app-button>Выбрать эпик - Основное</app-button>
+    <app-button>Создать задачу +</app-button>
+</div>
+<div class="columns-container">
+    <ng-container *ngIf="tasks$ | async as tasks">
+        <ng-container *ngFor="let column of columns$ | async">
+            <app-kanban-column
+                [column]="column"
+                [tasks]="tasks"
+            ></app-kanban-column>
+        </ng-container>
     </ng-container>
-</ng-container>
+</div>

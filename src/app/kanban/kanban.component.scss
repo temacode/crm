@@ -1,6 +1,17 @@
 :host {
     display: block;
-    height: calc(100% - 57px);
+    height: 100%;
+}
+
+.columns-container {
+    max-height: 100%;
     display: flex;
     justify-content: stretch;
+}
+
+.controls {
+    border-bottom: 1px solid #eaeaea;
+    padding: 8px 10px;
+    display: flex;
+    gap: 16px;
 }
