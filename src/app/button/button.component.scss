@@ -1,14 +1,55 @@
 :host {
-    display: inline-block;
+    display: block;
+    width: 100%;
+}
+
+.default {
+    display: block;
+    width: 100%;
     outline: none;
-    background: #4f5f82;
-    color: white;
-    border-radius: 6px;
+    border: none;
     cursor: pointer;
-    padding: 8px 16px;
     transition: 0.3s;
+    color: white;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.size {
+    &-sm {
+        border-radius: 6px;
+        padding: 8px 16px;
+    }
+
+    &-md {
+        border-radius: 6px;
+        padding: 8px 16px;
+    }
+
+    &-lg {
+        border-radius: 12px;
+        padding: 16px 24px;
+    }
+}
+
+.regular {
+    background: #6e8fe7;
+    box-shadow: 0px 2px 10px rgba(86, 114, 188, 0.36);
+    color: white;
+    // background: #4f5f82;
 
     &:hover {
-        background: #4d5462;
+        background: #536eb5;
+    }
+}
+
+.flat {
+    border: 1px solid #6e8fe7;
+    background: none;
+    color: #6e8fe7;
+    //box-shadow: 0px 2px 10px rgba(86, 114, 188, 0.36);
+
+    &:hover {
+        background: rgba(110, 143, 231, 0.11);
     }
 }

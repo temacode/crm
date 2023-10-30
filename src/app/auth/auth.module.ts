@@ -6,9 +6,17 @@ import {LoginComponent} from './login/login.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ApiInterceptor} from '../common/interceptors/api.interceptor';
 import {TokenInterceptor} from '../common';
+import {ButtonComponent} from '../button/button.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
-    imports: [AuthRouterModule],
+    imports: [
+        CommonModule,
+        AuthRouterModule,
+        ButtonComponent,
+        ReactiveFormsModule,
+    ],
     exports: [],
     declarations: [RegisterComponent, LoginComponent],
 })

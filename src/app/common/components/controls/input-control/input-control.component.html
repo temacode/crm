@@ -1,0 +1,10 @@
+<input
+    formControlName="name"
+    class="input"
+    type="text"
+    placeholder="Имя"
+    [class.error]="checkErrorState()"
+/>
+<p class="input-error" [class.visible]="checkErrorState()">
+    Это обязательное поле
+</p>

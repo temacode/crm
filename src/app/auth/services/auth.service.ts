@@ -5,10 +5,11 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {ACCESS_TOKEN_KEY} from 'src/app/common';
 
 export interface RegisterCredentials {
-    login: string;
-    password: string;
     name: string;
     surname: string;
+    email: string;
+    nickname: string;
+    password: string;
 }
 
 export interface LoginCredentials {

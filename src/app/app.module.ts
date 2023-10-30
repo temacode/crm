@@ -38,7 +38,7 @@ import {AuthModule} from './auth/auth.module';
         },
         {
             provide: APP_BASE_HREF,
-            useValue: '/crm',
+            useValue: '/',
         },
     ],
     bootstrap: [AppComponent],
