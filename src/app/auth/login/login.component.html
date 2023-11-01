@@ -4,40 +4,20 @@
         <p>Домашнаяя система контроля за всем</p>
     </div>
     <form [formGroup]="form" class="form">
-        <div>
-            <input
-                formControlName="email"
-                class="input"
-                type="email"
-                lang="en"
-                placeholder="Email"
-                [class.error]="checkErrorState(form.controls.email)"
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.email)"
-            >
-                Это обязательное поле
-            </p>
-        </div>
+        <app-input-control
+            formControlName="email"
+            type="email"
+            placeholder="Email"
+        >
+        </app-input-control>
 
-        <div>
-            <input
-                formControlName="password"
-                name="password"
-                class="input"
-                type="password"
-                autocomplete="password"
-                placeholder="Введите пароль"
-                [class.error]="checkErrorState(form.controls.password)"
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.password)"
-            >
-                Это обязательное поле
-            </p>
-        </div>
+        <app-input-control
+            formControlName="password"
+            type="password"
+            autocomplete="password"
+            placeholder="Введите пароль"
+        >
+        </app-input-control>
 
         <app-button buttonType="submit" (click)="login()" size="lg">
             Войти</app-button

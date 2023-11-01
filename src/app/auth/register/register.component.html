@@ -1,117 +1,50 @@
 <div class="container">
     <div class="description">
-        <h1 routerLink="/">Хаусер</h1>
-        <p>Домашнаяя система контроля за всем</p>
+        <h1 routerLink="/">Hontrol</h1>
+        <p>
+            Home control system
+            <strong>for everything</strong>
+        </p>
     </div>
     <form [formGroup]="form" class="form">
         <div class="input-group">
-            <div>
-                <input
-                    formControlName="name"
-                    class="input"
-                    type="text"
-                    placeholder="Имя"
-                    [class.error]="checkErrorState(form.controls.name)"
-                />
-                <p
-                    class="input-error"
-                    [class.visible]="checkErrorState(form.controls.name)"
-                >
-                    Это обязательное поле
-                </p>
-            </div>
+            <app-input-control
+                placeholder="Имя"
+                autocomplete="given-name"
+                formControlName="name"
+            ></app-input-control>
 
-            <div>
-                <input
-                    formControlName="surname"
-                    class="input"
-                    type="text"
-                    placeholder="Фамилия"
-                    [class.error]="checkErrorState(form.controls.surname)"
-                />
-                <p
-                    class="input-error"
-                    [class.visible]="checkErrorState(form.controls.surname)"
-                >
-                    Это обязательное поле
-                </p>
-            </div>
-        </div>
-        <div>
-            <input
-                formControlName="nickname"
-                class="input"
-                type="text"
-                lang="en"
-                placeholder="Придумайте ник"
-                [class.error]="checkErrorState(form.controls.nickname)"
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.nickname)"
-            >
-                Это обязательное поле
-            </p>
+            <app-input-control
+                placeholder="Фамилия"
+                autocomplete="family-name"
+                formControlName="surname"
+            ></app-input-control>
         </div>
 
-        <div>
-            <input
-                formControlName="email"
-                class="input"
-                type="email"
-                lang="en"
-                placeholder="Email"
-                [class.error]="checkErrorState(form.controls.email)"
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.email)"
-            >
-                Это обязательное поле
-            </p>
-        </div>
+        <app-input-control
+            placeholder="Придумайте ник"
+            formControlName="nickname"
+        ></app-input-control>
 
-        <div>
-            <input
-                formControlName="password"
-                name="new-password"
-                class="input"
-                type="password"
-                autocomplete="new-password"
-                placeholder="Введите пароль"
-                [class.error]="checkErrorState(form.controls.password)"
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.password)"
-            >
-                Это обязательное поле
-            </p>
-        </div>
+        <app-input-control
+            placeholder="Email"
+            type="email"
+            formControlName="email"
+        ></app-input-control>
 
-        <div>
-            <input
-                formControlName="passwordRepeat"
-                name="new-password-repeat"
-                class="input"
-                type="password"
-                autocomplete="new-password"
-                placeholder="Повторите пароль"
-                [class.error]="
-                    checkErrorState(form.controls.passwordRepeat) ||
-                    checkPasswordError()
-                "
-            />
-            <p
-                class="input-error"
-                [class.visible]="checkErrorState(form.controls.passwordRepeat)"
-            >
-                Это обязательное поле
-            </p>
-            <p class="input-error" [class.visible]="checkPasswordError()">
-                Пароли должны совпадать
-            </p>
-        </div>
+        <app-input-control
+            placeholder="Введите пароль"
+            type="password"
+            autocomplete="new-password"
+            formControlName="password"
+        ></app-input-control>
+
+        <app-input-control
+            placeholder="Повторите парол"
+            type="password"
+            autocomplete="new-password"
+            formControlName="passwordRepeat"
+        ></app-input-control>
 
         <app-button buttonType="submit" (click)="register()" size="lg">
             Зарегистрироваться

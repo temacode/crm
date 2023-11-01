@@ -1,19 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService, RegisterCredentials} from '../services/auth.service';
 import {
     AbstractControl,
+    AsyncValidatorFn,
     FormBuilder,
     FormControl,
     ValidationErrors,
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import {map, switchMap, timer, catchError, of, filter} from 'rxjs';
+import {ValidationErrorsEnum} from 'src/app/common';
 
 const checkPasswords: ValidatorFn = (
     group: AbstractControl
 ): ValidationErrors | null => {
-    let password = group.get('password')?.value;
-    let passwordRepeat = group.get('passwordRepeat')?.value;
+    let password = group.get('password')?.value.trim();
+    let passwordRepeat = group.get('passwordRepeat')?.value.trim();
 
     if (!password || !passwordRepeat) {
         return {required: true};
@@ -22,20 +25,62 @@ const checkPasswords: ValidatorFn = (
     return password === passwordRepeat ? null : {passwordsNotSame: true};
 };
 
+const requiredValidator: ValidatorFn = (control: AbstractControl) => {
+    let value = control.value.trim();
+
+    if (!value) {
+        return {required: true};
+    }
+
+    return null;
+};
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+    readonly ValidationErrorsEnum = ValidationErrorsEnum;
+
+    private asyncNicknameCheck: AsyncValidatorFn = (
+        control: AbstractControl
+    ) => {
+        if (!control.value.trim()) {
+            return of(null);
+        }
+        return timer(1000).pipe(
+            switchMap(() =>
+                this.authService.checkNicknameAvailability().pipe(
+                    map((nicknameAvailable) => {
+                        if (nicknameAvailable) {
+                            return null;
+                        }
+
+                        return {nicknameNotAvailable: true};
+                    }),
+                    catchError(() => {
+                        console.log(control);
+
+                        return of({nicknameNotAvailable: true});
+                    })
+                )
+            )
+        );
+    };
     readonly form = this.fb.group(
         {
-            name: new FormControl('Артем', [Validators.required]),
-            surname: new FormControl('', [Validators.required]),
-            nickname: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-            passwordRepeat: new FormControl('', [Validators.required]),
+            name: new FormControl('', [requiredValidator]),
+            surname: new FormControl('', [requiredValidator]),
+            nickname: new FormControl('', {
+                validators: [requiredValidator],
+                asyncValidators: [this.asyncNicknameCheck],
+            }),
+            email: new FormControl('', [requiredValidator, Validators.email]),
+            password: new FormControl('', [requiredValidator]),
+            passwordRepeat: new FormControl('', {
+                validators: [requiredValidator],
+            }),
         },
         {validators: [checkPasswords], updateOn: 'blur'}
     );
@@ -43,10 +88,6 @@ export class RegisterComponent {
         private readonly authService: AuthService,
         private readonly fb: FormBuilder
     ) {}
-
-    checkErrorState(control: AbstractControl): boolean {
-        return !control.valid && control.touched;
-    }
 
     checkPasswordError(): boolean {
         if (this.form.errors && this.form.controls.passwordRepeat.dirty) {
@@ -60,15 +101,19 @@ export class RegisterComponent {
         this.form.markAllAsTouched();
 
         if (!this.form.valid) {
+            console.log(this.form.errors);
+            if (this.form.errors && this.form.errors['passwordsNotSame']) {
+                this.form.controls.passwordRepeat.setErrors(this.form.errors);
+            }
             return;
         }
 
         const credentials: RegisterCredentials = {
-            name: this.form.value.name!,
-            surname: this.form.value.surname!,
-            email: this.form.value.email!,
-            nickname: this.form.value.nickname!,
-            password: this.form.value.password!,
+            name: this.form.value.name!.trim(),
+            surname: this.form.value.surname!.trim(),
+            email: this.form.value.email!.trim(),
+            nickname: this.form.value.nickname!.trim(),
+            password: this.form.value.password!.trim(),
         };
 
         this.authService.register$(credentials).subscribe();

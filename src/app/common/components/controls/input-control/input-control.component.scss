@@ -1,3 +1,63 @@
 :host {
+    position: relative;
     display: block;
+}
+
+input {
+    display: block;
+    outline: none;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 16px 24px;
+    border: 1px solid #6e8fe7;
+
+    &.error {
+        border: 1px solid red;
+    }
+
+    &:focus {
+        outline: solid #6e8fe7;
+    }
+}
+
+.input-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    height: 0px;
+    overflow: hidden;
+    transition: 0.3s;
+
+    &.visible {
+        height: 14px;
+    }
+}
+
+.loader {
+    &-container {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(-50%, calc(-50%));
+    }
+    --width: 24px;
+    width: var(--width);
+    height: var(--width);
+    border: 2px solid #6e8fe7;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

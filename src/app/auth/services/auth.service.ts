@@ -80,4 +80,8 @@ export class AuthService {
     getToken(): string | null {
         return this.localStorageService.getValue<string>(ACCESS_TOKEN_KEY);
     }
+
+    checkNicknameAvailability(): Observable<boolean> {
+        return this.http.get<boolean>(`api/v1/auth/nickname-check`);
+    }
 }

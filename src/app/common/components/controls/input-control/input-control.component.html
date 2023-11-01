@@ -1,10 +1,16 @@
 <input
-    formControlName="name"
-    class="input"
-    type="text"
-    placeholder="Имя"
-    [class.error]="checkErrorState()"
+    [type]="type"
+    [autocomplete]="autocomplete"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [class.error]="invalid"
+    [value]="value"
+    (input)="input($event)"
+    (focusout)="touch()"
 />
-<p class="input-error" [class.visible]="checkErrorState()">
-    Это обязательное поле
+<span *ngIf="status === 'PENDING'" class="loader-container"
+    ><span class="loader"></span
+></span>
+<p class="input-error" [class.visible]="invalid">
+    {{ errors | controlError }}
 </p>
