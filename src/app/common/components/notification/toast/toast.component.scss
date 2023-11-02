@@ -1,0 +1,61 @@
+:host {
+    display: block;
+    width: 100%;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    max-height: 200px;
+
+    &.visible {
+        margin-left: -350px;
+    }
+
+    &.removed {
+        max-height: 0;
+        margin-bottom: 0;
+    }
+}
+
+.container {
+    height: 100%;
+    border-radius: 6px;
+    padding: 16px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 10px rgba(86, 114, 188, 0.36);
+    background: white;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.type {
+    position: absolute;
+    width: 6px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #6e8fe7;
+
+    &.success {
+        background: #6ed16e;
+    }
+
+    &.warning {
+        background: #d6d630;
+    }
+
+    &.error {
+        background: #f56b6b;
+    }
+}
+
+.header {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.text {
+    font-size: 14px;
+}

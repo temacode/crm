@@ -8,7 +8,7 @@ import {APP_BASE_HREF, CommonModule} from '@angular/common';
 import {ButtonComponent} from './button/button.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiInterceptor} from './common/interceptors/api.interceptor';
-import {TokenInterceptor} from './common';
+import {NotificationsComponent, TokenInterceptor} from './common';
 import {AuthService} from './auth/services/auth.service';
 import {AuthModule} from './auth/auth.module';
 
@@ -22,6 +22,7 @@ import {AuthModule} from './auth/auth.module';
         HeaderComponent,
         KanbanModule,
         ButtonComponent,
+        NotificationsComponent,
     ],
     exports: [],
     providers: [

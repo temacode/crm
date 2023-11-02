@@ -1,0 +1,5 @@
+<div class="container" [class.visible]="visible">
+    <div class="type" [class]="data.type"></div>
+    <p class="header">{{ data.header }}</p>
+    <p *ngIf="data.text" class="text">{{ data.text }}</p>
+</div>

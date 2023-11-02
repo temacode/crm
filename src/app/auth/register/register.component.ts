@@ -11,6 +11,8 @@ import {
 } from '@angular/forms';
 import {map, switchMap, timer, catchError, of, filter} from 'rxjs';
 import {ValidationErrorsEnum} from 'src/app/common';
+import {NotificationService} from 'src/app/common/services/notification.service';
+import {Router} from '@angular/router';
 
 const checkPasswords: ValidatorFn = (
     group: AbstractControl
@@ -51,7 +53,7 @@ export class RegisterComponent {
         }
         return timer(1000).pipe(
             switchMap(() =>
-                this.authService.checkNicknameAvailability().pipe(
+                this.authService.checkNicknameAvailability(control.value).pipe(
                     map((nicknameAvailable) => {
                         if (nicknameAvailable) {
                             return null;
@@ -86,7 +88,9 @@ export class RegisterComponent {
     );
     constructor(
         private readonly authService: AuthService,
-        private readonly fb: FormBuilder
+        private readonly fb: FormBuilder,
+        private readonly notificationService: NotificationService,
+        private readonly router: Router
     ) {}
 
     checkPasswordError(): boolean {
@@ -116,6 +120,23 @@ export class RegisterComponent {
             password: this.form.value.password!.trim(),
         };
 
-        this.authService.register$(credentials).subscribe();
+        this.authService.register$(credentials).subscribe({
+            next: () => {
+                this.notificationService.showNotification({
+                    header: 'Пользователь успешно создан',
+                    type: 'success',
+                });
+
+                this.router.navigateByUrl('/');
+            },
+            error: (error) => {
+                this.notificationService.showNotification({
+                    header: 'Ошибка создания пользователя',
+                    text: error,
+                    type: 'error',
+                    timeout: 5000,
+                });
+            },
+        });
     }
 }

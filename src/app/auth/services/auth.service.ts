@@ -1,8 +1,16 @@
 import {LocalStorageService} from './../../../../.history/src/app/common/services/local-storage.service_20231026001758';
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {
+    BehaviorSubject,
+    Observable,
+    catchError,
+    of,
+    tap,
+    throwError,
+} from 'rxjs';
 import {ACCESS_TOKEN_KEY} from 'src/app/common';
+import {NotificationService} from 'src/app/common/services/notification.service';
 
 export interface RegisterCredentials {
     name: string;
@@ -39,9 +47,17 @@ export class AuthService {
     ) {}
 
     register$(credentials: RegisterCredentials): Observable<boolean> {
-        return this.http.post<boolean>(`/api/v1/auth/register`, {
-            ...credentials,
-        });
+        return this.http
+            .post<boolean>(`/api/v1/auth/register`, {
+                ...credentials,
+            })
+            .pipe(
+                catchError((response: HttpErrorResponse) => {
+                    return throwError(
+                        () => response.error.error ?? 'Что-то пошло не так'
+                    );
+                })
+            );
     }
 
     test$(): Observable<boolean> {
@@ -81,7 +97,9 @@ export class AuthService {
         return this.localStorageService.getValue<string>(ACCESS_TOKEN_KEY);
     }
 
-    checkNicknameAvailability(): Observable<boolean> {
-        return this.http.get<boolean>(`api/v1/auth/nickname-check`);
+    checkNicknameAvailability(nickname: string): Observable<boolean> {
+        return this.http.post<boolean>(`api/v1/auth/check-nickname`, {
+            nickname,
+        });
     }
 }
