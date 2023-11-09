@@ -13,8 +13,6 @@ export class ControlErrorPipe implements PipeTransform {
 
         const validatorError = Object.keys(errors)[0] as ValidationErrorsEnum;
 
-        console.log(validatorError);
-
         switch (validatorError) {
             case ValidationErrorsEnum.EMAIL:
                 return 'Введите корректный Email';

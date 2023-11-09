@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="controls">
-    <app-button>Выбрать эпик - Основное</app-button>
-    <app-button>Создать задачу +</app-button>
+    <app-button>Создать задачу <i class="fa-solid fa-plus"></i></app-button>
+    <app-button appearance="flat">Выбрать эпик - Основное</app-button>
 </div>
 <div class="columns-container">
     <ng-container *ngIf="tasks$ | async as tasks">

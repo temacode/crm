@@ -1,16 +1,21 @@
-import {LocalStorageService} from './../../../../.history/src/app/common/services/local-storage.service_20231026001758';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {
     BehaviorSubject,
     Observable,
     catchError,
+    map,
     of,
     tap,
     throwError,
 } from 'rxjs';
-import {ACCESS_TOKEN_KEY} from 'src/app/common';
+import {
+    ACCESS_TOKEN_KEY,
+    LocalStorageService,
+    REFRESH_TOKEN_KEY,
+} from 'src/app/common';
 import {NotificationService} from 'src/app/common/services/notification.service';
+import {Router} from '@angular/router';
 
 export interface RegisterCredentials {
     name: string;
@@ -37,13 +42,12 @@ interface LoginResponse {
 
 @Injectable()
 export class AuthService {
-    token$ = new BehaviorSubject<string | null>(
-        this.localStorageService.getValue<string>(ACCESS_TOKEN_KEY)
-    );
+    token$ = new BehaviorSubject<string | null>(this.getToken());
 
     constructor(
         private readonly http: HttpClient,
-        private readonly localStorageService: LocalStorageService
+        private readonly localStorageService: LocalStorageService,
+        private readonly router: Router
     ) {}
 
     register$(credentials: RegisterCredentials): Observable<boolean> {
@@ -68,12 +72,21 @@ export class AuthService {
         return this.http
             .post<LoginResponse>(`/api/v1/auth/login`, credentials)
             .pipe(
+                catchError((response: HttpErrorResponse) => {
+                    return throwError(
+                        () => response.error.error ?? 'Что-то пошло не так'
+                    );
+                }),
                 tap((res) => {
-                    if (res.accessToken) {
-                        this.setToken(res.accessToken);
-                    }
+                    this.setToken(res.accessToken);
                 })
             );
+    }
+
+    logout(): void {
+        this.deleteToken();
+
+        this.router.navigateByUrl('/auth/login');
     }
 
     refreshToken(): Observable<{accessToken: string}> {
@@ -95,6 +108,11 @@ export class AuthService {
 
     getToken(): string | null {
         return this.localStorageService.getValue<string>(ACCESS_TOKEN_KEY);
+    }
+
+    deleteToken(): void {
+        this.token$.next(null);
+        this.localStorageService.deleteValue(ACCESS_TOKEN_KEY);
     }
 
     checkNicknameAvailability(nickname: string): Observable<boolean> {

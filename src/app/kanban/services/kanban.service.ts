@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
-import { Column } from '../interfaces/column.interface';
-import { Task } from '../interfaces/tasl.interface';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, map, of, tap} from 'rxjs';
+import {Column} from '../interfaces/column.interface';
+import {Task} from '../interfaces/tasl.interface';
+import {HttpClient} from '@angular/common/http';
 
 const description =
     'Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками';
@@ -9,10 +10,10 @@ const description =
 @Injectable()
 export class KanbanService {
     readonly columns$ = new BehaviorSubject<Column[]>([
-        { id: 1, title: 'Беклог' },
-        { id: 2, title: 'Запланировано' },
-        { id: 3, title: 'В процессе' },
-        { id: 4, title: 'Выполнено' },
+        {id: 1, title: 'Беклог'},
+        {id: 2, title: 'Запланировано'},
+        {id: 3, title: 'В процессе'},
+        {id: 4, title: 'Выполнено'},
     ]);
 
     private readonly tasksSubject$ = new BehaviorSubject<Task[]>([
@@ -44,6 +45,8 @@ export class KanbanService {
 
     readonly tasks$ = this.tasksSubject$.asObservable();
 
+    constructor(private readonly http: HttpClient) {}
+
     getTask(taskId: number): Task | undefined {
         return this.tasksSubject$.getValue().find((task) => task.id === taskId);
     }
@@ -68,5 +71,9 @@ export class KanbanService {
             }),
             map(() => true)
         );
+    }
+
+    getColumns$(): Observable<boolean> {
+        return this.http.get<boolean>(`/api/v1/todo/get-columns`);
     }
 }

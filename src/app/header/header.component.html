@@ -1,5 +1,9 @@
-<h1>Хаусер</h1>
+<h1 routerLink="/">Хаусер</h1>
 
 <div class="controls">
-    <app-button routerLink="/auth/login">Войти</app-button>
+    <p class="greeting">Добрый день, {{ (user$ | async)?.name }}</p>
+    <app-button appearance="flat" (click)="navigateToSettings()">
+        <i class="fa-solid fa-gear"></i>
+    </app-button>
+    <app-button (click)="logout()">Выйти</app-button>
 </div>

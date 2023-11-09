@@ -84,7 +84,7 @@ export class RegisterComponent {
                 validators: [requiredValidator],
             }),
         },
-        {validators: [checkPasswords], updateOn: 'blur'}
+        {validators: [checkPasswords]}
     );
     constructor(
         private readonly authService: AuthService,
@@ -105,10 +105,16 @@ export class RegisterComponent {
         this.form.markAllAsTouched();
 
         if (!this.form.valid) {
-            console.log(this.form.errors);
             if (this.form.errors && this.form.errors['passwordsNotSame']) {
                 this.form.controls.passwordRepeat.setErrors(this.form.errors);
             }
+
+            this.notificationService.showNotification({
+                header: 'Ошибка отправки формы',
+                text: 'Некоторые поля заполнены неверно',
+                type: 'warning',
+            });
+
             return;
         }
 

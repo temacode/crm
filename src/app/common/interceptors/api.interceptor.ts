@@ -1,3 +1,4 @@
+import {Router} from '@angular/router';
 import {
     HttpErrorResponse,
     HttpEvent,
@@ -14,8 +15,9 @@ import {AuthService} from 'src/app/auth/services/auth.service';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
     constructor(
-        private localStorageService: LocalStorageService,
-        private authService: AuthService
+        private readonly localStorageService: LocalStorageService,
+        private readonly authService: AuthService,
+        private readonly router: Router
     ) {}
 
     intercept(
@@ -43,6 +45,12 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+        if (!this.localStorageService.getValue(ACCESS_TOKEN_KEY)) {
+            this.router.navigateByUrl('/auth/login');
+
+            return throwError(() => request);
+        }
+
         return this.authService.refreshToken().pipe(
             switchMap(() => {
                 return next.handle(request);
@@ -50,6 +58,7 @@ export class ApiInterceptor implements HttpInterceptor {
             catchError((error) => {
                 if (error.status == 401) {
                     this.localStorageService.deleteValue(ACCESS_TOKEN_KEY);
+                    this.router.navigateByUrl('/auth/login');
                 }
 
                 return throwError(() => error);
