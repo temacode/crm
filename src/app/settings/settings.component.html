@@ -13,9 +13,14 @@
         <div class="settings-content">
             <h3>Основное</h3>
             <p>Основные настройки для канбан-доски</p>
-            <h3>Колонки</h3>
-            <p>Добавить колонку</p>
-            <h3>Задачи</h3>
+            <h3 class="settings-content__title">Колонки</h3>
+            <app-button size="sm" appearance="flat" (click)="addColumn()">
+                Добавить колонку
+            </app-button>
+            <h3 class="settings-content__title">Задачи</h3>
+            <app-button size="sm" appearance="flat" (click)="addColumn()">
+                Добавить задачу
+            </app-button>
         </div>
     </div>
 </section>

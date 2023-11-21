@@ -9,14 +9,14 @@ import {ButtonComponent} from './button/button.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
     ApiInterceptor,
+    CurtainContainerComponent,
     NotificationsComponent,
+    OverlayContainerComponent,
     TimeoutInterceptor,
     TokenInterceptor,
 } from './common';
 import {AuthService} from './auth/services/auth.service';
-import {AuthModule} from './auth/auth.module';
 import {AppService} from './app.service';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,6 +29,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         KanbanModule,
         ButtonComponent,
         NotificationsComponent,
+        OverlayContainerComponent,
+        CurtainContainerComponent,
     ],
     providers: [
         AppService,

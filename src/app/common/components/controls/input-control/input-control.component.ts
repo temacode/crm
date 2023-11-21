@@ -16,13 +16,9 @@ import {
 import {
     ControlValueAccessor,
     FormControlName,
-    FormControlState,
     FormControlStatus,
-    NG_VALUE_ACCESSOR,
-    NgControl,
     ValidationErrors,
 } from '@angular/forms';
-import {ValidationErrorsEnum} from 'src/app/common/enums';
 
 type InputType = 'text' | 'email' | 'password';
 

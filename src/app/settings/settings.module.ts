@@ -1,3 +1,4 @@
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {SettingsComponent} from './settings.component';
 import {SettingsRouterModule} from './settings-router.module';
@@ -6,6 +7,11 @@ import {ButtonComponent} from '../button/button.component';
 
 @NgModule({
     declarations: [SettingsComponent],
-    imports: [SettingsRouterModule, HeaderComponent, ButtonComponent],
+    imports: [
+        CommonModule,
+        SettingsRouterModule,
+        HeaderComponent,
+        ButtonComponent,
+    ],
 })
 export class SettingsModule {}

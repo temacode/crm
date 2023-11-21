@@ -62,8 +62,6 @@ export class RegisterComponent {
                         return {nicknameNotAvailable: true};
                     }),
                     catchError(() => {
-                        console.log(control);
-
                         return of({nicknameNotAvailable: true});
                     })
                 )

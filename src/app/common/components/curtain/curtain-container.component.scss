@@ -1,0 +1,61 @@
+:host {
+    display: block;
+    position: fixed;
+    width: 600px;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    right: -600px;
+    background: white;
+    z-index: 3;
+    transition: 0.3s;
+
+    &.visible {
+        right: 0px;
+    }
+}
+
+.header {
+    height: 56px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+        width: 100%;
+        padding-left: 40px;
+        font-size: 18px;
+    }
+}
+
+.close {
+    display: inline-block;
+    top: 0;
+    right: 0;
+    max-width: 56px;
+    height: 56px;
+    width: 100%;
+    color: gray;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 0 12px;
+    border-bottom: 1px solid #6e8fe7;
+    border-left: 1px solid #6e8fe7;
+
+    i {
+        font-size: 24px;
+    }
+
+    &:hover {
+        background: #6e8fe7;
+
+        i {
+            color: white;
+        }
+    }
+}

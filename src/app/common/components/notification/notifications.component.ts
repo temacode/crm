@@ -1,16 +1,12 @@
 import {
     Component,
-    ElementRef,
-    Injector,
     OnDestroy,
     OnInit,
-    Renderer2,
     ViewChild,
     ViewContainerRef,
-    ViewRef,
 } from '@angular/core';
 import {NotificationService} from '../../services/notification.service';
-import {Subscription, take} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ToastComponent} from './toast/toast.component';
 
 export interface NotificationContent {
@@ -29,27 +25,19 @@ const DEFAULT_TOAST_TIMEOUT = 3000;
     standalone: true,
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-    @ViewChild('dynamic', {
+    @ViewChild('toastContainer', {
         read: ViewContainerRef,
     })
-    viewContainerRef: ViewContainerRef;
+    toastContainer: ViewContainerRef;
     readonly events$ = this.notificationService.events$;
 
     private eventSub: Subscription;
 
-    constructor(
-        private readonly notificationService: NotificationService,
-        private readonly injector: Injector
-    ) {}
+    constructor(private readonly notificationService: NotificationService) {}
 
     ngOnInit(): void {
         this.eventSub = this.events$.subscribe((data) => {
-            const toast = this.viewContainerRef.createComponent(
-                ToastComponent,
-                {
-                    injector: this.injector,
-                }
-            );
+            const toast = this.toastContainer.createComponent(ToastComponent);
 
             toast.instance.data = data;
             setTimeout(() => {
