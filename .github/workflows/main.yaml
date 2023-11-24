@@ -21,6 +21,6 @@ jobs:
               env:
                   SECRET: ${{secrets.SECRET}}
               run: |
-                  if [$SECRET = '123']; then
-                    echo "Секрет совпадает"
+                  if [ ${{ github.event_name }} == 'push' ]; then
+                      echo "This is a push event"
                   fi
