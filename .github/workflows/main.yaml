@@ -9,4 +9,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Build
-              run: echo "Привет мир, меня зовут {{vars.NAME}}"
+              run: echo "Привет мир, меня зовут ${{vars.NAME}}"
