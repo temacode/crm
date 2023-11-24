@@ -14,13 +14,6 @@ jobs:
               env:
                   SECRET: ${{secrets.SECRET}}
               run: |
-                  if [ $SECRET -eq '123' ]; then
+                  if [[ $SECRET == '123' ]]; then
                     echo "Секрет совпадает"
-                  fi
-            - name: Test 2
-              env:
-                  SECRET: ${{secrets.SECRET}}
-              run: |
-                  if [ ${{ secrets.SECRET }} == 'push' ]; then
-                      echo "This is a push event"
                   fi
