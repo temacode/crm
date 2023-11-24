@@ -11,7 +11,9 @@ jobs:
             - name: Build
               run: echo "Привет мир, меня зовут ${{vars.NAME}}"
             - name: Test
+              env:
+                  SECRET: ${{secrets.SECRET}}
               run: |
-                  if [["${{secrets.SECRET}}" == "123"]]; then
+                  if [[$SECRET == "123"]]; then
                     echo "Секрет совпадает"
                   fi
