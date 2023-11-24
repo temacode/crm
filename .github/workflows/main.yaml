@@ -10,3 +10,8 @@ jobs:
         steps:
             - name: Build
               run: echo "Привет мир, меня зовут ${{vars.NAME}}"
+            - name: Test
+              run: |
+                  if [["${{secrets.SECRET}}" == "123"]]; then
+                    echo "Секрет совпадает"
+                  fi
