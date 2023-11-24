@@ -9,4 +9,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Build
-              run: echo "Привет мир!"
+              run: echo "Привет мир, это очень секретный ключ - $SECRET"
