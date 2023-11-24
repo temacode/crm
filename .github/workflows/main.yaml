@@ -2,11 +2,11 @@ name: "ArtemCRM"
 on:
     push:
         branches:
-            - master
+            - actions-test
 
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Build
-              run: echo "Привет мир, это очень секретный ключ - $SECRET"
+              run: echo "Привет мир, меня зовут $NAME"
