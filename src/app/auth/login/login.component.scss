@@ -33,7 +33,7 @@
     h1 {
         font-size: 64px;
         line-height: 150%;
-        color: #6e8fe7;
+        color: #3578f6;
         font-weight: 700;
         cursor: pointer;
     }
@@ -60,14 +60,14 @@
     box-sizing: border-box;
     border-radius: 12px;
     padding: 16px 24px;
-    border: 1px solid #6e8fe7;
+    border: 1px solid #3578f6;
 
     &.error {
         border: 1px solid red;
     }
 
     &:focus {
-        outline: solid #6e8fe7;
+        outline: solid #3578f6;
     }
 
     &-error {

@@ -9,7 +9,6 @@ import {
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable, catchError, tap, throwError} from 'rxjs';
-import {AuthService} from 'src/app/auth/services/auth.service';
 
 @Injectable()
 export class TimeoutInterceptor implements HttpInterceptor {

@@ -18,4 +18,8 @@ export class CurtainService {
         this.overlayService.showOverlay(true);
         this.showCurtain$.next(content);
     }
+
+    closeCurtain(): void {
+        this.overlayService.overlayClick();
+    }
 }

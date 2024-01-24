@@ -36,6 +36,7 @@ export class ApiInterceptor implements HttpInterceptor {
                     !req.url.includes('auth') &&
                     (error.status === 403 || error.status === 401)
                 ) {
+                    console.log('handled');
                     return this.handle401Error(req, next);
                 }
 

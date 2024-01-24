@@ -44,15 +44,14 @@
     justify-content: center;
     align-items: center;
     border-radius: 0 0 0 12px;
-    border-bottom: 1px solid #6e8fe7;
-    border-left: 1px solid #6e8fe7;
 
     i {
         font-size: 24px;
+        color: #3578f6;
     }
 
     &:hover {
-        background: #6e8fe7;
+        background: #3578f6;
 
         i {
             color: white;
