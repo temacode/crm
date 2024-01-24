@@ -1,43 +1,47 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, map, of, tap} from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+    catchError,
+    map,
+    of,
+    take,
+    tap,
+} from 'rxjs';
 import {Column} from '../interfaces/column.interface';
 import {Task} from '../interfaces/tasl.interface';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {NotificationService} from 'src/app/common/services/notification.service';
 
 const description =
     'Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками';
 
 @Injectable()
 export class KanbanService {
-    readonly columns$ = new BehaviorSubject<Column[]>([
-        {id: 1, title: 'Беклог'},
-        {id: 2, title: 'Запланировано'},
-        {id: 3, title: 'В процессе'},
-        {id: 4, title: 'Выполнено'},
-    ]);
+    readonly columns$ = new BehaviorSubject<Column[]>([]);
 
     private readonly tasksSubject$ = new BehaviorSubject<Task[]>([
         {
             id: 1,
-            columnId: 1,
+            columnId: 26,
             title: 'Создать скелет канбана',
             description,
         },
         {
             id: 2,
-            columnId: 1,
+            columnId: 26,
             title: 'Создать скелет канбана',
             description,
         },
         {
             id: 3,
-            columnId: 1,
+            columnId: 26,
             title: 'Создать скелет канбана',
             description,
         },
         {
             id: 4,
-            columnId: 1,
+            columnId: 26,
             title: 'Создать скелет канбана',
             description,
         },
@@ -45,7 +49,11 @@ export class KanbanService {
 
     readonly tasks$ = this.tasksSubject$.asObservable();
 
-    constructor(private readonly http: HttpClient) {}
+    // const a = new KanbanService(вот сюда)
+    constructor(
+        private readonly http: HttpClient,
+        private readonly notificationService: NotificationService
+    ) {}
 
     getTask(taskId: number): Task | undefined {
         return this.tasksSubject$.getValue().find((task) => task.id === taskId);
@@ -58,6 +66,7 @@ export class KanbanService {
 
                 if (updatedTask) {
                     updatedTask.columnId = toColumnId;
+                    console.log(updatedTask);
                     //TODO: Запрос на бек
 
                     this.tasksSubject$.next([
@@ -73,7 +82,53 @@ export class KanbanService {
         );
     }
 
-    getColumns$(): Observable<boolean> {
-        return this.http.get<boolean>(`/api/v1/todo/get-columns`);
+    getColumns(): void {
+        this.http
+            .get<Column[]>(`/api/v1/todo/get-columns`)
+            .pipe(take(1))
+            .subscribe({
+                next: (columns) => {
+                    this.columns$.next(columns);
+                },
+                error: (errorBody: HttpErrorResponse) => {
+                    this.notificationService.showNotification({
+                        header: 'Что-то пошло не так',
+                        text: errorBody.error.error,
+                        type: 'error',
+                    });
+                },
+            });
+    }
+
+    addColumn$(column: Pick<Column, 'title'>): Observable<boolean> {
+        return this.http.post<Column>(`/api/v1/todo/add-column`, column).pipe(
+            map(() => true),
+            catchError((errorBody: HttpErrorResponse) => {
+                this.notificationService.showNotification({
+                    header: 'Что-то пошло не так',
+                    text: errorBody.error.error,
+                    type: 'error',
+                });
+
+                return of(false);
+            })
+        );
+    }
+
+    deleteColumn$(columnId: number): Observable<boolean> {
+        return this.http
+            .delete<Column>(`/api/v1/todo/delete-column`, {body: {columnId}})
+            .pipe(
+                map(() => true),
+                catchError((errorBody: HttpErrorResponse) => {
+                    this.notificationService.showNotification({
+                        header: 'Что-то пошло не так',
+                        text: errorBody.error.error,
+                        type: 'error',
+                    });
+
+                    return of(false);
+                })
+            );
     }
 }

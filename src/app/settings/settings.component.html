@@ -14,6 +14,29 @@
             <h3>Основное</h3>
             <p>Основные настройки для канбан-доски</p>
             <h3 class="settings-content__title">Колонки</h3>
+            <table>
+                <tr>
+                    <td>#</td>
+                    <td>Название колонки</td>
+                </tr>
+                <tr *ngFor="let column of columns$ | async">
+                    <td>{{ column.id }}</td>
+                    <td>{{ column.title }}</td>
+                    <td>
+                        <div class="column-settings">
+                            <i class="fa-solid fa-up-down"></i>
+                        </div>
+                    </td>
+                    <td>
+                        <div
+                            class="column-settings"
+                            (click)="deleteColumn(column.id)"
+                        >
+                            <i class="fa-solid fa-square-minus"></i>
+                        </div>
+                    </td>
+                </tr>
+            </table>
             <app-button size="sm" appearance="flat" (click)="addColumn()">
                 Добавить колонку
             </app-button>

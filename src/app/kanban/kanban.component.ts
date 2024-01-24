@@ -6,9 +6,13 @@ import {KanbanService} from './services/kanban.service';
     templateUrl: './kanban.component.html',
     styleUrls: ['./kanban.component.scss'],
 })
-export class KanbanComponent {
+export class KanbanComponent implements OnInit {
     readonly columns$ = this.kanbanService.columns$;
     readonly tasks$ = this.kanbanService.tasks$;
 
     constructor(private readonly kanbanService: KanbanService) {}
+
+    ngOnInit(): void {
+        this.kanbanService.getColumns();
+    }
 }

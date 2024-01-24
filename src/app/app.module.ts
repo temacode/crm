@@ -35,11 +35,13 @@ import {AppService} from './app.service';
     providers: [
         AppService,
         AuthService,
-        {
+        // Этот интерсептор ведет себя странно, перекидывая на страницу авторизации при любой ошибке 500, не уверен, зачем он здесь нужен
+        // Скорее всего это нужно для разлогина
+        /* {
             provide: HTTP_INTERCEPTORS,
             useClass: TimeoutInterceptor,
             multi: true,
-        },
+        }, */
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ApiInterceptor,

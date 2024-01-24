@@ -1,34 +1,13 @@
 <form [formGroup]="addColumnForm">
     <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-        laborum inventore ut modi ad quam dignissimos error saepe earum.
-        Distinctio dolore voluptas a tempore illum incidunt? Quam perspiciatis
-        ea molestiae?
+        Придумайте название для колонки и укажите ее место относительно других
     </p>
     <app-input-control
         placeholder="Название колонки"
-        formControlName="name"
-    ></app-input-control>
-    <app-input-control
-        placeholder="Название колонки"
-        formControlName="name"
-    ></app-input-control>
-    <app-input-control
-        placeholder="Название колонки"
-        formControlName="name"
-    ></app-input-control>
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-        laborum
-    </p>
-    <app-input-control
-        placeholder="Название колонки"
-        formControlName="name"
-    ></app-input-control>
-    <app-input-control
-        placeholder="Название колонки"
-        formControlName="name"
+        formControlName="title"
     ></app-input-control>
 
-    <app-button size="lg" buttonType="submit">Привет</app-button>
+    <app-button size="lg" buttonType="submit" (click)="submit()">
+        Отправить
+    </app-button>
 </form>
