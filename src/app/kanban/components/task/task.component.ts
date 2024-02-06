@@ -6,20 +6,21 @@ import {
     Input,
     Renderer2,
     ViewContainerRef,
-} from '@angular/core';
-import {Task} from '../../interfaces/tasl.interface';
+} from "@angular/core";
+
+import {Task} from "../../interfaces/tasl.interface";
 
 @Component({
-    selector: 'app-task',
-    templateUrl: './task.component.html',
-    styleUrls: ['./task.component.scss'],
+    selector: "app-task",
+    templateUrl: "./task.component.html",
+    styleUrls: ["./task.component.scss"],
     standalone: true,
 })
 export class TaskComponent {
     @Input()
-    task: Task;
+        task: Task;
 
-    @HostBinding('attr.draggable') draggable = true;
+    @HostBinding("attr.draggable") draggable = true;
 
     constructor(
         private readonly r2: Renderer2,
@@ -27,10 +28,10 @@ export class TaskComponent {
         private readonly vcr: ViewContainerRef
     ) {}
 
-    @HostListener('dragstart', ['$event'])
+    @HostListener("dragstart", ["$event"])
     drag($event: DragEvent): void {
         if ($event.dataTransfer) {
-            $event.dataTransfer.setData('string', this.task.id.toString());
+            $event.dataTransfer.setData("string", this.task.id.toString());
         }
     }
 }

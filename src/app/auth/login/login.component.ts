@@ -1,27 +1,31 @@
-import {Router} from '@angular/router';
+import {Component} from "@angular/core";
 import {
     AbstractControl,
     FormBuilder,
     FormControl,
     Validators,
-} from '@angular/forms';
-import {AuthService} from './../services/auth.service';
-import {Component} from '@angular/core';
-import {NotificationService} from 'src/app/common/services/notification.service';
+} from "@angular/forms";
+import {Router} from "@angular/router";
+import {NotificationService} from "src/app/common/services/notification.service";
+
+import {AuthService} from "../services/auth.service";
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent {
-    readonly form = this.fb.group(
-        {
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-        },
-        {updateOn: 'blur'}
-    );
+    readonly form = this.fb.group({
+        email: new FormControl("", {
+            validators: [Validators.required, Validators.email],
+            nonNullable: true,
+        }),
+        password: new FormControl("", {
+            validators: [Validators.required],
+            nonNullable: true,
+        }),
+    });
     constructor(
         private readonly authService: AuthService,
         private readonly fb: FormBuilder,
@@ -38,18 +42,18 @@ export class LoginComponent {
 
         this.authService
             .login$({
-                email: this.form.value.email!,
-                password: this.form.value.password!,
+                email: this.form.getRawValue().email,
+                password: this.form.getRawValue().password,
             })
             .subscribe({
                 next: () => {
-                    this.router.navigateByUrl('/');
+                    this.router.navigateByUrl("/");
                 },
                 error: (error) => {
                     this.notificationService.showNotification({
-                        header: 'Ошибка входа',
+                        header: "Ошибка входа",
                         text: error,
-                        type: 'error',
+                        type: "error",
                     });
                 },
             });

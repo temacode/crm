@@ -4,31 +4,25 @@ import {
     OnInit,
     ViewChild,
     ViewContainerRef,
-} from '@angular/core';
-import {NotificationService} from '../../services/notification.service';
-import {Subscription} from 'rxjs';
-import {ToastComponent} from './toast/toast.component';
+} from "@angular/core";
+import {Subscription} from "rxjs";
 
-export interface NotificationContent {
-    header: string;
-    text?: string;
-    timeout?: number;
-    type?: 'success' | 'error' | 'warning';
-}
+import {NotificationService} from "../../services/notification.service";
+import {ToastComponent} from "./toast/toast.component";
 
 const DEFAULT_TOAST_TIMEOUT = 3000;
 
 @Component({
-    selector: 'app-notifications',
-    templateUrl: './notifications.component.html',
-    styleUrls: ['./notifications.component.scss'],
+    selector: "app-notifications",
+    templateUrl: "./notifications.component.html",
+    styleUrls: ["./notifications.component.scss"],
     standalone: true,
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
-    @ViewChild('toastContainer', {
+    @ViewChild("toastContainer", {
         read: ViewContainerRef,
     })
-    toastContainer: ViewContainerRef;
+        toastContainer: ViewContainerRef;
     readonly events$ = this.notificationService.events$;
 
     private eventSub: Subscription;

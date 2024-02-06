@@ -1,7 +1,7 @@
-import {Component, Injector, ViewContainerRef} from '@angular/core';
+import {Component, ViewContainerRef} from "@angular/core";
 
 @Component({
-    selector: 'app-curtain',
+    selector: "app-curtain",
     template: `<div>
         <ng-content></ng-content>
         <p>Curtain Component</p>

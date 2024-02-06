@@ -1,16 +1,17 @@
-import {Router} from '@angular/router';
 import {
     HttpErrorResponse,
     HttpEvent,
     HttpHandler,
     HttpInterceptor,
     HttpRequest,
-} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, catchError, switchMap, throwError} from 'rxjs';
-import {LocalStorageService} from '../services';
-import {ACCESS_TOKEN_KEY} from '../consts';
-import {AuthService} from 'src/app/auth/services/auth.service';
+} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {catchError, Observable, switchMap, throwError} from "rxjs";
+import {AuthService} from "src/app/auth/services/auth.service";
+
+import {ACCESS_TOKEN_KEY} from "../consts";
+import {LocalStorageService} from "../services";
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -24,19 +25,15 @@ export class ApiInterceptor implements HttpInterceptor {
         req: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        req = req.clone({
-            withCredentials: true,
-        });
-
         return next.handle(req).pipe(
             catchError((error) => {
                 if (
                     error instanceof HttpErrorResponse &&
-                    req.url.includes('api') &&
-                    !req.url.includes('auth') &&
+                    req.url.includes("api") &&
+                    !req.url.includes("auth") &&
                     (error.status === 403 || error.status === 401)
                 ) {
-                    console.log('handled');
+                    console.log("handled");
                     return this.handle401Error(req, next);
                 }
 
@@ -47,19 +44,17 @@ export class ApiInterceptor implements HttpInterceptor {
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
         if (!this.localStorageService.getValue(ACCESS_TOKEN_KEY)) {
-            this.router.navigateByUrl('/auth/login');
+            this.router.navigateByUrl("/auth/login");
 
             return throwError(() => request);
         }
 
         return this.authService.refreshToken().pipe(
-            switchMap(() => {
-                return next.handle(request);
-            }),
+            switchMap(() => next.handle(request)),
             catchError((error) => {
-                if (error.status == 401) {
+                if (error.status === 401) {
                     this.localStorageService.deleteValue(ACCESS_TOKEN_KEY);
-                    this.router.navigateByUrl('/auth/login');
+                    this.router.navigateByUrl("/auth/login");
                 }
 
                 return throwError(() => error);

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {KanbanService} from './services/kanban.service';
+import {Component, OnInit} from "@angular/core";
+
+import {KanbanService} from "./services/kanban.service";
 
 @Component({
-    selector: 'app-kanban',
-    templateUrl: './kanban.component.html',
-    styleUrls: ['./kanban.component.scss'],
+    selector: "app-kanban",
+    templateUrl: "./kanban.component.html",
+    styleUrls: ["./kanban.component.scss"],
 })
 export class KanbanComponent implements OnInit {
     readonly columns$ = this.kanbanService.columns$;

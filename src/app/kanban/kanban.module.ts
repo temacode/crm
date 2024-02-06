@@ -1,11 +1,12 @@
-import {NgModule} from '@angular/core';
-import {KanbanComponent} from './kanban.component';
-import {KanbanColumnComponent} from './components/kanban-column/kanban-column.component';
-import {KanbanService} from './services/kanban.service';
-import {CommonModule} from '@angular/common';
-import {HeaderComponent} from '../header/header.component';
-import {ButtonComponent} from '../button/button.component';
-import {KanbanRouterModule} from './kanban-router.module';
+import {CommonModule} from "@angular/common";
+import {NgModule} from "@angular/core";
+
+import {ButtonComponent} from "../button/button.component";
+import {HeaderComponent} from "../header/header.component";
+import {KanbanColumnComponent} from "./components/kanban-column/kanban-column.component";
+import {KanbanComponent} from "./kanban.component";
+import {KanbanRouterModule} from "./kanban-router.module";
+import {KanbanService} from "./services/kanban.service";
 
 @NgModule({
     declarations: [KanbanComponent],

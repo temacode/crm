@@ -1,21 +1,24 @@
-import {Component, HostBinding, HostListener, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TaskComponent} from '../task/task.component';
-import {Column} from '../../interfaces/column.interface';
-import {Task} from '../../interfaces/tasl.interface';
-import {KanbanService} from '../../services/kanban.service';
-import {take} from 'rxjs';
+import {CommonModule} from "@angular/common";
+import {
+    Component, HostBinding, HostListener, Input
+} from "@angular/core";
+import {take} from "rxjs";
+
+import {Column} from "../../interfaces/column.interface";
+import {Task} from "../../interfaces/tasl.interface";
+import {KanbanService} from "../../services/kanban.service";
+import {TaskComponent} from "../task/task.component";
 
 @Component({
-    selector: 'app-kanban-column',
-    templateUrl: './kanban-column.component.html',
-    styleUrls: ['./kanban-column.component.scss'],
+    selector: "app-kanban-column",
+    templateUrl: "./kanban-column.component.html",
+    styleUrls: ["./kanban-column.component.scss"],
     standalone: true,
     imports: [CommonModule, TaskComponent],
 })
 export class KanbanColumnComponent {
     @Input()
-    column: Column;
+        column: Column;
 
     @Input()
     set tasks(value: Task[]) {
@@ -26,32 +29,32 @@ export class KanbanColumnComponent {
         return this._tasks;
     }
 
-    @HostBinding('class.dragover') isDragOver = false;
+    @HostBinding("class.dragover") isDragOver = false;
 
     private _tasks: Task[];
 
     constructor(private readonly kanbanService: KanbanService) {}
 
-    @HostListener('dragover', ['$event'])
+    @HostListener("dragover", ["$event"])
     dragover($event: DragEvent): void {
         $event.preventDefault();
         this.isDragOver = true;
     }
 
-    @HostListener('dragleave')
+    @HostListener("dragleave")
     dragleave(): void {
         this.isDragOver = false;
     }
 
-    @HostListener('drop', ['$event'])
+    @HostListener("drop", ["$event"])
     drop($event: DragEvent): void {
         $event.preventDefault();
 
         this.isDragOver = false;
 
-        const taskId = Number($event.dataTransfer?.getData('string'));
+        const taskId = Number($event.dataTransfer?.getData("string"));
 
-        if (isNaN(taskId)) {
+        if (Number.isNaN(taskId)) {
             return;
         }
 

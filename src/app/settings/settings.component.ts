@@ -1,17 +1,16 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {OverlayService} from '../common/services/overlay.service';
-import {CurtainService} from '../common/services/curtain.service';
-import {AddColumnCurtain} from './add-column-curtain/add-column.curtain';
-import {KanbanService} from '../kanban/services/kanban.service';
-import {Column} from '../kanban/interfaces/column.interface';
-import {NotificationService} from '../common/services/notification.service';
-import {tap} from 'rxjs';
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {tap} from "rxjs";
+
+import {CurtainService} from "../common/services/curtain.service";
+import {NotificationService} from "../common/services/notification.service";
+import {KanbanService} from "../kanban/services/kanban.service";
+import {AddColumnCurtain} from "./add-column-curtain/add-column.curtain";
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.scss'],
+    selector: "app-settings",
+    templateUrl: "./settings.component.html",
+    styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
     readonly columns$ = this.kanbanService.columns$;
@@ -28,11 +27,11 @@ export class SettingsComponent implements OnInit {
     }
 
     navigateToMain() {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl("/");
     }
 
     addColumn() {
-        this.curtainService.showCurtain('Добавить колонку', AddColumnCurtain);
+        this.curtainService.showCurtain("Добавить колонку", AddColumnCurtain);
     }
 
     deleteColumn(columnId: number) {
@@ -43,7 +42,7 @@ export class SettingsComponent implements OnInit {
             .subscribe((result) => {
                 if (result) {
                     this.notificationService.showNotification({
-                        header: 'Колонка успешно удалена',
+                        header: "Колонка успешно удалена",
                     });
                 }
             });

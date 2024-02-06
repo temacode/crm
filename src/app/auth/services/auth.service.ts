@@ -1,21 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 import {
-    BehaviorSubject,
-    Observable,
-    catchError,
-    map,
-    of,
-    tap,
-    throwError,
-} from 'rxjs';
-import {
-    ACCESS_TOKEN_KEY,
-    LocalStorageService,
-    REFRESH_TOKEN_KEY,
-} from 'src/app/common';
-import {NotificationService} from 'src/app/common/services/notification.service';
-import {Router} from '@angular/router';
+    BehaviorSubject, catchError, Observable, tap, throwError
+} from "rxjs";
+import {ACCESS_TOKEN_KEY, LocalStorageService} from "src/app/common";
 
 export interface RegisterCredentials {
     name: string;
@@ -52,31 +41,27 @@ export class AuthService {
 
     register$(credentials: RegisterCredentials): Observable<boolean> {
         return this.http
-            .post<boolean>(`/api/v1/auth/register`, {
-                ...credentials,
-            })
+            .post<boolean>("/api/v1/auth/register", {
+            ...credentials,
+        })
             .pipe(
-                catchError((response: HttpErrorResponse) => {
-                    return throwError(
-                        () => response.error.error ?? 'Что-то пошло не так'
-                    );
-                })
+                catchError((response: HttpErrorResponse) => throwError(
+                    () => response.error.error ?? "Что-то пошло не так"
+                ))
             );
     }
 
     test$(): Observable<boolean> {
-        return this.http.get<boolean>(`/api/v1/test`);
+        return this.http.get<boolean>("/api/v1/test");
     }
 
     login$(credentials: LoginCredentials): Observable<LoginResponse> {
         return this.http
-            .post<LoginResponse>(`/api/v1/auth/login`, credentials)
+            .post<LoginResponse>("/api/v1/auth/login", credentials)
             .pipe(
-                catchError((response: HttpErrorResponse) => {
-                    return throwError(
-                        () => response.error.error ?? 'Что-то пошло не так'
-                    );
-                }),
+                catchError((response: HttpErrorResponse) => throwError(
+                    () => response.error.error ?? "Что-то пошло не так"
+                )),
                 tap((res) => {
                     this.setToken(res.accessToken);
                 })
@@ -86,12 +71,12 @@ export class AuthService {
     logout(): void {
         this.deleteToken();
 
-        this.router.navigateByUrl('/auth/login');
+        this.router.navigateByUrl("/auth/login");
     }
 
     refreshToken(): Observable<{accessToken: string}> {
         return this.http
-            .get<{accessToken: string}>(`/api/v1/auth/refresh-token`)
+            .get<{accessToken: string}>("/api/v1/auth/refresh-token")
             .pipe(
                 tap((res) => {
                     if (res.accessToken) {
@@ -116,7 +101,7 @@ export class AuthService {
     }
 
     checkNicknameAvailability(nickname: string): Observable<boolean> {
-        return this.http.post<boolean>(`api/v1/auth/check-nickname`, {
+        return this.http.post<boolean>("api/v1/auth/check-nickname", {
             nickname,
         });
     }

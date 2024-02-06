@@ -1,46 +1,34 @@
 import {
     Component,
     ComponentRef,
-    EmbeddedViewRef,
     HostBinding,
-    Injector,
+    OnDestroy,
     OnInit,
-    Type,
     ViewChild,
     ViewContainerRef,
-} from '@angular/core';
+} from "@angular/core";
 import {
-    ReplaySubject,
-    Subject,
-    Subscription,
-    first,
-    take,
-    takeUntil,
-} from 'rxjs';
-import {CurtainService} from '../../services/curtain.service';
-import {CurtainComponent} from './curtain-component';
-import {OverlayService} from '../../services/overlay.service';
+    ReplaySubject, Subject, take, takeUntil
+} from "rxjs";
 
-export interface CurtainContent {
-    title: string;
-    tpl: Type<any>;
-}
+import {CurtainService} from "../../services/curtain.service";
+import {OverlayService} from "../../services/overlay.service";
 
 @Component({
-    selector: 'app-curtain-container',
-    templateUrl: './curtain-container.component.html',
-    styleUrls: ['./curtain-container.component.scss'],
+    selector: "app-curtain-container",
+    templateUrl: "./curtain-container.component.html",
+    styleUrls: ["./curtain-container.component.scss"],
     standalone: true,
 })
-export class CurtainContainerComponent implements OnInit {
-    @ViewChild('curtiainContainer', {
+export class CurtainContainerComponent implements OnInit, OnDestroy {
+    @ViewChild("curtiainContainer", {
         read: ViewContainerRef,
     })
-    curtiainContainer: ViewContainerRef;
+        curtiainContainer: ViewContainerRef;
 
     title: string | null = null;
-    @HostBinding('class.visible')
-    visible: boolean = false;
+    @HostBinding("class.visible")
+        visible = false;
 
     readonly showCurtain$ = this.curtainService.showCurtain$;
     private component: ComponentRef<any>;

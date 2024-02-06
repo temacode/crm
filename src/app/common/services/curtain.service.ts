@@ -1,9 +1,14 @@
-import {Injectable, Type} from '@angular/core';
-import {ReplaySubject} from 'rxjs';
-import {OverlayService} from './overlay.service';
-import {CurtainContent} from '../components';
+import {Injectable, Type} from "@angular/core";
+import {ReplaySubject} from "rxjs";
 
-@Injectable({providedIn: 'root'})
+import {OverlayService} from "./overlay.service";
+
+export interface CurtainContent {
+    title: string;
+    tpl: Type<any>;
+}
+
+@Injectable({providedIn: "root"})
 export class CurtainService {
     readonly showCurtain$ = new ReplaySubject<CurtainContent>(1);
 

@@ -1,27 +1,24 @@
-import {NgModule, inject} from '@angular/core';
-import {ResolveFn, RouterModule, Routes} from '@angular/router';
-import {AppService, UserInfo} from './app.service';
+import {inject, NgModule} from "@angular/core";
+import {ResolveFn, RouterModule, Routes} from "@angular/router";
 
-const KanbanResolver: ResolveFn<UserInfo> = () =>
-    inject(AppService).getUserInfo$();
+import {AppService, UserInfo} from "./app.service";
+
+const KanbanResolver: ResolveFn<UserInfo> = () => inject(AppService).getUserInfo$();
 
 const routes: Routes = [
     {
-        path: '',
+        path: "",
         resolve: {userInfo: KanbanResolver},
-        loadChildren: () =>
-            import('./kanban/kanban.module').then((m) => m.KanbanModule),
+        loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
     },
     {
-        path: 'auth',
-        loadChildren: () =>
-            import('./auth/auth.module').then((m) => m.AuthModule),
+        path: "auth",
+        loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
     },
     {
-        path: 'settings',
+        path: "settings",
         resolve: {userInfo: KanbanResolver},
-        loadChildren: () =>
-            import('./settings/settings.module').then((m) => m.SettingsModule),
+        loadChildren: () => import("./settings/settings.module").then((m) => m.SettingsModule),
     },
 ];
 

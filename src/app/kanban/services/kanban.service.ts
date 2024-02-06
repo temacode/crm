@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {Injectable} from "@angular/core";
 import {
     BehaviorSubject,
-    Observable,
     catchError,
     map,
+    Observable,
     of,
     take,
     tap,
-} from 'rxjs';
-import {Column} from '../interfaces/column.interface';
-import {Task} from '../interfaces/tasl.interface';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {NotificationService} from 'src/app/common/services/notification.service';
+} from "rxjs";
+import {NotificationService} from "src/app/common/services/notification.service";
 
-const description =
-    'Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками';
+import {Column} from "../interfaces/column.interface";
+import {Task} from "../interfaces/tasl.interface";
+
+const description = "Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками";
 
 @Injectable()
 export class KanbanService {
@@ -24,25 +24,25 @@ export class KanbanService {
         {
             id: 1,
             columnId: 26,
-            title: 'Создать скелет канбана',
+            title: "Создать скелет канбана",
             description,
         },
         {
             id: 2,
             columnId: 26,
-            title: 'Создать скелет канбана',
+            title: "Создать скелет канбана",
             description,
         },
         {
             id: 3,
             columnId: 26,
-            title: 'Создать скелет канбана',
+            title: "Создать скелет канбана",
             description,
         },
         {
             id: 4,
             columnId: 26,
-            title: 'Создать скелет канбана',
+            title: "Создать скелет канбана",
             description,
         },
     ]);
@@ -67,14 +67,12 @@ export class KanbanService {
                 if (updatedTask) {
                     updatedTask.columnId = toColumnId;
                     console.log(updatedTask);
-                    //TODO: Запрос на бек
+                    // TODO: Запрос на бек
 
                     this.tasksSubject$.next([
                         ...this.tasksSubject$
                             .getValue()
-                            .map((task) =>
-                                task.id === taskId ? updatedTask : task
-                            ),
+                            .map((task) => (task.id === taskId ? updatedTask : task)),
                     ]);
                 }
             }),
@@ -84,7 +82,7 @@ export class KanbanService {
 
     getColumns(): void {
         this.http
-            .get<Column[]>(`/api/v1/todo/get-columns`)
+            .get<Column[]>("/api/v1/todo/get-columns")
             .pipe(take(1))
             .subscribe({
                 next: (columns) => {
@@ -92,22 +90,22 @@ export class KanbanService {
                 },
                 error: (errorBody: HttpErrorResponse) => {
                     this.notificationService.showNotification({
-                        header: 'Что-то пошло не так',
+                        header: "Что-то пошло не так",
                         text: errorBody.error.error,
-                        type: 'error',
+                        type: "error",
                     });
                 },
             });
     }
 
-    addColumn$(column: Pick<Column, 'title'>): Observable<boolean> {
-        return this.http.post<Column>(`/api/v1/todo/add-column`, column).pipe(
+    addColumn$(column: Pick<Column, "title">): Observable<boolean> {
+        return this.http.post<Column>("/api/v1/todo/add-column", column).pipe(
             map(() => true),
             catchError((errorBody: HttpErrorResponse) => {
                 this.notificationService.showNotification({
-                    header: 'Что-то пошло не так',
+                    header: "Что-то пошло не так",
                     text: errorBody.error.error,
-                    type: 'error',
+                    type: "error",
                 });
 
                 return of(false);
@@ -117,14 +115,14 @@ export class KanbanService {
 
     deleteColumn$(columnId: number): Observable<boolean> {
         return this.http
-            .delete<Column>(`/api/v1/todo/delete-column`, {body: {columnId}})
+            .delete<Column>("/api/v1/todo/delete-column", {body: {columnId}})
             .pipe(
                 map(() => true),
                 catchError((errorBody: HttpErrorResponse) => {
                     this.notificationService.showNotification({
-                        header: 'Что-то пошло не так',
+                        header: "Что-то пошло не так",
                         text: errorBody.error.error,
-                        type: 'error',
+                        type: "error",
                     });
 
                     return of(false);

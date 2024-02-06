@@ -1,14 +1,15 @@
-import {NotificationService} from './../services/notification.service';
 import {
     HttpErrorResponse,
     HttpEvent,
     HttpHandler,
     HttpInterceptor,
     HttpRequest,
-} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {Observable, catchError, tap, throwError} from 'rxjs';
+} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
+import {catchError, Observable, throwError} from "rxjs";
+
+import {NotificationService} from "../services/notification.service";
 
 @Injectable()
 export class TimeoutInterceptor implements HttpInterceptor {
@@ -24,7 +25,7 @@ export class TimeoutInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error) => {
                 if (error instanceof HttpErrorResponse && error.status >= 500) {
-                    return this.handle500Error(request, next);
+                    return this.handle500Error(request);
                 }
 
                 return throwError(() => error);
@@ -32,14 +33,14 @@ export class TimeoutInterceptor implements HttpInterceptor {
         );
     }
 
-    private handle500Error(request: HttpRequest<any>, next: HttpHandler) {
+    private handle500Error(request: HttpRequest<any>) {
         this.notificationService.showNotification({
-            header: 'Что-то пошло не так',
-            text: 'Попробуйте перезагрузить страницу или повторите попытку позже',
-            type: 'error',
+            header: "Что-то пошло не так",
+            text: "Попробуйте перезагрузить страницу или повторите попытку позже",
+            type: "error",
         });
 
-        this.router.navigateByUrl('/auth/login');
+        this.router.navigateByUrl("/auth/login");
 
         return throwError(() => request);
     }

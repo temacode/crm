@@ -5,22 +5,23 @@ import {
     OnInit,
     ViewChild,
     ViewContainerRef,
-} from '@angular/core';
-import {OverlayService} from '../../services/overlay.service';
-import {Subscription} from 'rxjs';
-import {OverlayComponent} from './overlay.component';
+} from "@angular/core";
+import {Subscription} from "rxjs";
+
+import {OverlayService} from "../../services/overlay.service";
+import {OverlayComponent} from "./overlay.component";
 
 @Component({
-    selector: 'app-overlay-container',
-    templateUrl: './overlay-container.component.html',
-    styleUrls: ['./overlay-container.component.scss'],
+    selector: "app-overlay-container",
+    templateUrl: "./overlay-container.component.html",
+    styleUrls: ["./overlay-container.component.scss"],
     standalone: true,
 })
 export class OverlayContainerComponent implements OnInit, OnDestroy {
-    @ViewChild('overlayContainer', {
+    @ViewChild("overlayContainer", {
         read: ViewContainerRef,
     })
-    overlayContainer: ViewContainerRef;
+        overlayContainer: ViewContainerRef;
 
     readonly showOverlay$ = this.overlayService.showOverlay$;
     private overlaySub: Subscription;
@@ -34,15 +35,13 @@ export class OverlayContainerComponent implements OnInit, OnDestroy {
                 this.component.instance.visible = false;
 
                 setTimeout(() => {
-                    this.component!.destroy();
                     this.component = null;
                 }, 300);
 
                 return;
             }
 
-            this.component =
-                this.overlayContainer.createComponent(OverlayComponent);
+            this.component = this.overlayContainer.createComponent(OverlayComponent);
 
             setTimeout(() => {
                 this.component!.instance.visible = true;

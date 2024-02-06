@@ -1,26 +1,22 @@
 import {
-    Component,
-    EventEmitter,
-    HostBinding,
-    HostListener,
-    Input,
-    Output,
-} from '@angular/core';
-import {OverlayService} from '../../services/overlay.service';
+    Component, HostBinding, HostListener, Input
+} from "@angular/core";
+
+import {OverlayService} from "../../services/overlay.service";
 
 @Component({
-    selector: 'app-overlay',
-    templateUrl: './overlay.component.html',
-    styleUrls: ['./overlay.component.scss'],
+    selector: "app-overlay",
+    templateUrl: "./overlay.component.html",
+    styleUrls: ["./overlay.component.scss"],
 })
 export class OverlayComponent {
     @Input()
-    @HostBinding('class.visible')
-    visible: boolean;
+    @HostBinding("class.visible")
+        visible: boolean;
 
     constructor(private readonly overlayService: OverlayService) {}
 
-    @HostListener('click')
+    @HostListener("click")
     emitClick() {
         this.overlayService.overlayClick();
     }

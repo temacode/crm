@@ -1,6 +1,6 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, map, tap} from 'rxjs';
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 
 export interface UserInfo {
     id: number;
@@ -17,7 +17,7 @@ export class AppService {
     constructor(private readonly http: HttpClient) {}
 
     getUserInfo$(): Observable<UserInfo> {
-        return this.http.get<UserInfo>(`/api/v1/service/user`).pipe(
+        return this.http.get<UserInfo>("/api/v1/service/user").pipe(
             tap((userInfo) => {
                 this.user$.next(userInfo);
             })

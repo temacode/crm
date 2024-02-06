@@ -1,22 +1,22 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
-import {KanbanModule} from './kanban/kanban.module';
-import {APP_BASE_HREF, CommonModule} from '@angular/common';
-import {ButtonComponent} from './button/button.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {APP_BASE_HREF, CommonModule} from "@angular/common";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+
+import {AppComponent} from "./app.component";
+import {AppService} from "./app.service";
+import {AppRoutingModule} from "./app-routing.module";
+import {AuthService} from "./auth/services/auth.service";
+import {ButtonComponent} from "./button/button.component";
 import {
     ApiInterceptor,
     CurtainContainerComponent,
     NotificationsComponent,
     OverlayContainerComponent,
-    TimeoutInterceptor,
     TokenInterceptor,
-} from './common';
-import {AuthService} from './auth/services/auth.service';
-import {AppService} from './app.service';
+} from "./common";
+import {HeaderComponent} from "./header/header.component";
+import {KanbanModule} from "./kanban/kanban.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -54,7 +54,7 @@ import {AppService} from './app.service';
         },
         {
             provide: APP_BASE_HREF,
-            useValue: '/',
+            useValue: "/",
         },
     ],
     bootstrap: [AppComponent],

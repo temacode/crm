@@ -1,32 +1,24 @@
 import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    DoCheck,
     Input,
-    OnChanges,
-    OnInit,
     Optional,
     Self,
-    SimpleChanges,
-} from '@angular/core';
+} from "@angular/core";
 import {
     ControlValueAccessor,
     FormControlName,
     FormControlStatus,
     ValidationErrors,
-} from '@angular/forms';
+} from "@angular/forms";
 
-type InputType = 'text' | 'email' | 'password';
+type InputType = "text" | "email" | "password";
 
 @Component({
-    selector: 'app-input-control',
-    templateUrl: './input-control.component.html',
-    styleUrls: ['./input-control.component.scss'],
-    //changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-input-control",
+    templateUrl: "./input-control.component.html",
+    styleUrls: ["./input-control.component.scss"],
+    // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputControlComponent implements ControlValueAccessor {
     set value(value: string) {
@@ -43,16 +35,16 @@ export class InputControlComponent implements ControlValueAccessor {
     touched: boolean;
 
     @Input()
-    type: InputType;
+        type: InputType;
     @Input()
-    name: string = '';
+        name = "";
     @Input()
-    autocomplete: string = '';
+        autocomplete = "";
 
     @Input()
-    placeholder: string = '';
+        placeholder = "";
 
-    disabled: boolean = false;
+    disabled = false;
 
     constructor(
         @Self() @Optional() private control: FormControlName,
@@ -114,13 +106,13 @@ export class InputControlComponent implements ControlValueAccessor {
     get status(): FormControlStatus {
         return this.control
             ? (this.control.status as FormControlStatus)
-            : 'INVALID';
+            : "INVALID";
     }
 
     private get controlInvalid(): boolean {
         return this.control ? !!this.control.invalid : false;
     }
 
-    private onChange(_: any) {}
+    private onChange: (_: any) => any;
     private onTouched() {}
 }

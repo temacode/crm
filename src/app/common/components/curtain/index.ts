@@ -1,1 +1,1 @@
-export * from './curtain-container.component';
+export * from "./curtain-container.component";

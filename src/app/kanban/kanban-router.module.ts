@@ -1,10 +1,11 @@
-import {NgModule} from '@angular/core';
-import {Route, RouterModule} from '@angular/router';
-import {KanbanComponent} from './kanban.component';
+import {NgModule} from "@angular/core";
+import {Route, RouterModule} from "@angular/router";
+
+import {KanbanComponent} from "./kanban.component";
 
 const routes: Route[] = [
     {
-        path: '',
+        path: "",
         component: KanbanComponent,
     },
 ];

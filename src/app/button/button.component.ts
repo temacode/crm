@@ -1,14 +1,14 @@
-import {CommonModule} from '@angular/common';
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {CommonModule} from "@angular/common";
+import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
 
-type ButtonAppearance = 'regular' | 'flat';
-type ButtonSize = 'sm' | 'md' | 'lg';
-type ButtonType = 'button' | 'submit' | 'link';
+type ButtonAppearance = "regular" | "flat";
+type ButtonSize = "sm" | "md" | "lg";
+type ButtonType = "button" | "submit" | "link";
 
 @Component({
-    selector: 'app-button',
-    templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss'],
+    selector: "app-button",
+    templateUrl: "./button.component.html",
+    styleUrls: ["./button.component.scss"],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [CommonModule],
@@ -41,7 +41,7 @@ export class ButtonComponent {
         return this._buttonType;
     }
 
-    private _appearance: ButtonAppearance = 'regular';
-    private _size: ButtonSize = 'md';
-    private _buttonType: ButtonType = 'button';
+    private _appearance: ButtonAppearance = "regular";
+    private _size: ButtonSize = "md";
+    private _buttonType: ButtonType = "button";
 }
