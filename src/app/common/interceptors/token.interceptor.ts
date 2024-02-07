@@ -23,10 +23,11 @@ export class TokenInterceptor implements HttpInterceptor {
         const token = this.authService.getToken();
 
         if (token) {
-            request.headers.set(
-                "Authorization",
-                `Bearer ${this.authService.getToken()}`
-            );
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${this.authService.getToken()}`,
+                },
+            });
         }
 
         return next.handle(request);

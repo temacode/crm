@@ -20,6 +20,7 @@ export class LoginComponent {
         email: new FormControl("", {
             validators: [Validators.required, Validators.email],
             nonNullable: true,
+            updateOn: "blur",
         }),
         password: new FormControl("", {
             validators: [Validators.required],

@@ -34,15 +34,12 @@ export class InputControlComponent implements ControlValueAccessor {
 
     touched: boolean;
 
-    @Input()
-        type: InputType;
-    @Input()
-        name = "";
-    @Input()
-        autocomplete = "";
+    @Input() type: InputType;
 
-    @Input()
-        placeholder = "";
+    @Input() name = "";
+    @Input() autocomplete = "";
+
+    @Input() placeholder = "";
 
     disabled = false;
 
@@ -113,6 +110,6 @@ export class InputControlComponent implements ControlValueAccessor {
         return this.control ? !!this.control.invalid : false;
     }
 
-    private onChange: (_: any) => any;
+    private onChange(_: any) {}
     private onTouched() {}
 }

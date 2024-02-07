@@ -27,6 +27,7 @@
                 "class-methods-use-this": "off",
                 "no-underscore-dangle": "off",
                 "operator-linebreak": "off",
+                "no-param-reassign": "off",
                 "object-curly-newline": "off",
                 "no-console": "off",
                 "max-len": [
