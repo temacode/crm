@@ -21,7 +21,7 @@ export class OverlayContainerComponent implements OnInit, OnDestroy {
     @ViewChild("overlayContainer", {
         read: ViewContainerRef,
     })
-        overlayContainer: ViewContainerRef;
+    overlayContainer: ViewContainerRef;
 
     readonly showOverlay$ = this.overlayService.showOverlay$;
     private overlaySub: Subscription;
@@ -35,13 +35,15 @@ export class OverlayContainerComponent implements OnInit, OnDestroy {
                 this.component.instance.visible = false;
 
                 setTimeout(() => {
+                    this.component?.destroy();
                     this.component = null;
                 }, 300);
 
                 return;
             }
 
-            this.component = this.overlayContainer.createComponent(OverlayComponent);
+            this.component =
+                this.overlayContainer.createComponent(OverlayComponent);
 
             setTimeout(() => {
                 this.component!.instance.visible = true;

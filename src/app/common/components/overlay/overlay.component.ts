@@ -1,6 +1,4 @@
-import {
-    Component, HostBinding, HostListener, Input
-} from "@angular/core";
+import {Component, HostBinding, HostListener, Input} from "@angular/core";
 
 import {OverlayService} from "../../services/overlay.service";
 
@@ -12,7 +10,7 @@ import {OverlayService} from "../../services/overlay.service";
 export class OverlayComponent {
     @Input()
     @HostBinding("class.visible")
-        visible: boolean;
+    visible: boolean;
 
     constructor(private readonly overlayService: OverlayService) {}
 

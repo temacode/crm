@@ -7,9 +7,7 @@ import {
     ViewChild,
     ViewContainerRef,
 } from "@angular/core";
-import {
-    ReplaySubject, Subject, take, takeUntil
-} from "rxjs";
+import {ReplaySubject, Subject, take, takeUntil} from "rxjs";
 
 import {CurtainService} from "../../services/curtain.service";
 import {OverlayService} from "../../services/overlay.service";
@@ -20,15 +18,15 @@ import {OverlayService} from "../../services/overlay.service";
     styleUrls: ["./curtain-container.component.scss"],
     standalone: true,
 })
-export class CurtainContainerComponent implements OnInit, OnDestroy {
+export class CurtainContainerComponent implements OnInit {
     @ViewChild("curtiainContainer", {
         read: ViewContainerRef,
     })
-        curtiainContainer: ViewContainerRef;
+    curtiainContainer: ViewContainerRef;
 
     title: string | null = null;
     @HostBinding("class.visible")
-        visible = false;
+    visible = false;
 
     readonly showCurtain$ = this.curtainService.showCurtain$;
     private component: ComponentRef<any>;

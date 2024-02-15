@@ -11,7 +11,7 @@
             <app-button appearance="regular" size="lg">Канбан</app-button>
         </div>
         <div class="settings-content">
-            <h3>Основное</h3>
+            <h3 class="settings-content__title">Основное</h3>
             <p>Основные настройки для канбан-доски</p>
             <h3 class="settings-content__title">Колонки</h3>
             <table>
@@ -38,11 +38,21 @@
                     </td>
                 </tr>
             </table>
-            <app-button size="sm" appearance="flat" (click)="addColumn()">
+            <app-button
+                class="add-button"
+                size="sm"
+                appearance="flat"
+                (click)="addColumn()"
+            >
                 Добавить колонку
             </app-button>
             <h3 class="settings-content__title">Задачи</h3>
-            <app-button size="sm" appearance="flat" (click)="addColumn()">
+            <app-button
+                class="add-button"
+                size="sm"
+                appearance="flat"
+                (click)="addColumn()"
+            >
                 Добавить задачу
             </app-button>
         </div>

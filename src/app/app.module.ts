@@ -17,6 +17,7 @@ import {
 } from "./common";
 import {HeaderComponent} from "./header/header.component";
 import {KanbanModule} from "./kanban/kanban.module";
+import {ErrorInterceptor} from "./common/interceptors/error.interceptor";
 
 @NgModule({
     declarations: [AppComponent],
@@ -42,6 +43,11 @@ import {KanbanModule} from "./kanban/kanban.module";
             useClass: TimeoutInterceptor,
             multi: true,
         }, */
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true,
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ApiInterceptor,
