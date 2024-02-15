@@ -12,36 +12,38 @@ import {
 import {NotificationService} from "src/app/common/services/notification.service";
 
 import {Column} from "../interfaces/column.interface";
-import {Task} from "../interfaces/tasl.interface";
+import {Task} from "../interfaces/task.interface";
 
-const description = "Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками";
+const description =
+    "Сверстать подобие канбан доски и сделать возможжность перекидывать задачи между колонками";
 
 @Injectable()
 export class KanbanService {
     readonly columns$ = new BehaviorSubject<Column[]>([]);
+    readonly columnId = 27;
 
     private readonly tasksSubject$ = new BehaviorSubject<Task[]>([
         {
             id: 1,
-            columnId: 26,
+            columnId: this.columnId,
             title: "Создать скелет канбана",
             description,
         },
         {
             id: 2,
-            columnId: 26,
+            columnId: this.columnId,
             title: "Создать скелет канбана",
             description,
         },
         {
             id: 3,
-            columnId: 26,
+            columnId: this.columnId,
             title: "Создать скелет канбана",
             description,
         },
         {
             id: 4,
-            columnId: 26,
+            columnId: this.columnId,
             title: "Создать скелет канбана",
             description,
         },
@@ -72,7 +74,9 @@ export class KanbanService {
                     this.tasksSubject$.next([
                         ...this.tasksSubject$
                             .getValue()
-                            .map((task) => (task.id === taskId ? updatedTask : task)),
+                            .map((task) =>
+                                task.id === taskId ? updatedTask : task
+                            ),
                     ]);
                 }
             }),

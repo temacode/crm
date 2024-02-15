@@ -35,6 +35,7 @@
         "@angular/compiler-cli": "^16.1.0",
         "@tinkoff/eslint-config": "^2.0.0",
         "@tinkoff/eslint-config-angular": "^2.0.0",
+        "@tinkoff/prettier-config": "^2.0.0",
         "@types/jasmine": "~4.3.0",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",

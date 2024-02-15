@@ -1,11 +1,9 @@
 import {CommonModule} from "@angular/common";
-import {
-    Component, HostBinding, HostListener, Input
-} from "@angular/core";
+import {Component, HostBinding, HostListener, Input} from "@angular/core";
 import {take} from "rxjs";
 
 import {Column} from "../../interfaces/column.interface";
-import {Task} from "../../interfaces/tasl.interface";
+import {Task} from "../../interfaces/task.interface";
 import {KanbanService} from "../../services/kanban.service";
 import {TaskComponent} from "../task/task.component";
 
@@ -18,7 +16,7 @@ import {TaskComponent} from "../task/task.component";
 })
 export class KanbanColumnComponent {
     @Input()
-        column: Column;
+    column: Column;
 
     @Input()
     set tasks(value: Task[]) {

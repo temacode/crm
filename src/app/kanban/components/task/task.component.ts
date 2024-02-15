@@ -1,6 +1,6 @@
 import {Component, HostBinding, HostListener, Input} from "@angular/core";
 
-import {Task} from "../../interfaces/tasl.interface";
+import {Task} from "../../interfaces/task.interface";
 
 @Component({
     selector: "app-task",
