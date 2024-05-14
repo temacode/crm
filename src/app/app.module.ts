@@ -2,7 +2,7 @@ import {APP_BASE_HREF, CommonModule} from "@angular/common";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
 import {AppService} from "./app.service";
 import {AppRoutingModule} from "./app-routing.module";
@@ -23,6 +23,7 @@ import {ErrorInterceptor} from "./common/interceptors/error.interceptor";
     declarations: [AppComponent],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         CommonModule,
         HttpClientModule,
         AppRoutingModule,

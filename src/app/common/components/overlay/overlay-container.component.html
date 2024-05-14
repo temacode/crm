@@ -1,1 +1,1 @@
-<ng-template #overlayContainer></ng-template>
+<div *ngIf="overlayActive$ | async as overlay" class="overlay" (click)="overlayClicked()"></div>

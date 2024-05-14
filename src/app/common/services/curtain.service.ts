@@ -1,30 +1,38 @@
-import {Injectable, Type} from "@angular/core";
-import {ReplaySubject} from "rxjs";
+import {Injectable, Type} from '@angular/core';
+import {BehaviorSubject, Observable, ReplaySubject, combineLatest, map, merge, switchMap, take, tap} from 'rxjs';
 
-import {OverlayService} from "./overlay.service";
+import {OverlayService} from './overlay.service';
 
 export interface CurtainContent {
     title: string;
-    tpl: Type<any>;
+    tpl?: Type<any>;
+    completeWith: (result: any) => void;
 }
 
-@Injectable({providedIn: "root"})
+@Injectable({providedIn: 'root'})
 export class CurtainService {
-    readonly showCurtain$ = new ReplaySubject<CurtainContent>(1);
+    private readonly curtainsSubject$ = new BehaviorSubject<ReadonlyArray<CurtainContent>>([]);
 
-    constructor(private readonly overlayService: OverlayService) {}
+    readonly curtains$ = this.curtainsSubject$.asObservable();
 
-    showCurtain(title: string, tpl: Type<any>): void {
-        const content: CurtainContent = {
-            title,
-            tpl,
-        };
+    open(title: string, tpl?: Type<any>): Observable<any> {
+        return new Observable(observer => {
+            const completeWith = (result: any): void => {
+                observer.next(result);
+                observer.complete();
+            };
 
-        this.overlayService.showOverlay(true);
-        this.showCurtain$.next(content);
-    }
+            const curtain = {
+                title,
+                tpl,
+                completeWith,
+            };
 
-    closeCurtain(): void {
-        this.overlayService.overlayClick();
+            this.curtainsSubject$.next([...this.curtainsSubject$.value, curtain]);
+
+            return () => {
+                this.curtainsSubject$.next(this.curtainsSubject$.value.filter(x => x !== curtain));
+            };
+        });
     }
 }

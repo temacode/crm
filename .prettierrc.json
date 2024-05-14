@@ -1,6 +1,0 @@
-{
-  "plugins": ["@tinkoff/prettier-config", "@tinkoff/prettier-config/angular"],
-  "bracketSpacing": false,
-  "tabWidth": 4,
-  "singleQuote": false
-}

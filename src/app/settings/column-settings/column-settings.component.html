@@ -10,7 +10,7 @@
     </tr>
     <tr
         #columnItem
-        *ngFor="let column of columns$ | async"
+        *ngFor="let column of columns$ | async; let i = index"
         [id]="column.id"
         (dragstart)="dragstart($event)"
         (dragend)="dragend($event)"
@@ -21,7 +21,7 @@
             <div
                 class="column-settings"
                 #dragButton
-                (mousedown)="makeDraggable(column.id)"
+                (mousedown)="makeDraggable(column.id, i)"
             >
                 <i class="fa-solid fa-up-down"></i>
             </div>

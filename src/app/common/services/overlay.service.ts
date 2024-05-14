@@ -1,17 +1,27 @@
-import {Injectable} from "@angular/core";
-import {ReplaySubject, Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
 
-@Injectable({providedIn: "root"})
+interface OverlayConfig {
+    close: () => void;
+}
+
+@Injectable({providedIn: 'root'})
 export class OverlayService {
-    readonly showOverlay$ = new ReplaySubject<boolean>(1);
-    private readonly click = new Subject();
-    readonly overlayClicked$ = this.click.asObservable();
+    private readonly overlayActiveSubject$ = new BehaviorSubject<boolean>(false);
+    readonly overlayActive$ = this.overlayActiveSubject$.asObservable();
 
-    showOverlay(value: boolean): void {
-        this.showOverlay$.next(value);
+    private readonly overlayClickedSubject$ = new Subject<void>();
+    readonly overlayClicked$ = this.overlayClickedSubject$.asObservable();
+
+    open(): void {
+        this.overlayActiveSubject$.next(true);
     }
 
-    overlayClick(): void {
-        this.click.next(true);
+    close(): void {
+        this.overlayActiveSubject$.next(false);
+    }
+
+    overlayClicked(): void {
+        this.overlayClickedSubject$.next();
     }
 }

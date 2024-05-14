@@ -1,75 +1,44 @@
-import {
-    Component,
-    ComponentRef,
-    HostBinding,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
-} from "@angular/core";
-import {ReplaySubject, Subject, take, takeUntil} from "rxjs";
-
-import {CurtainService} from "../../services/curtain.service";
-import {OverlayService} from "../../services/overlay.service";
+import {Component, OnInit} from '@angular/core';
+import {CurtainService} from '../../services/curtain.service';
+import {CommonModule} from '@angular/common';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {OverlayService} from '../../services/overlay.service';
+import {Subscription, tap} from 'rxjs';
 
 @Component({
-    selector: "app-curtain-container",
-    templateUrl: "./curtain-container.component.html",
-    styleUrls: ["./curtain-container.component.scss"],
+    selector: 'app-curtain-container',
+    templateUrl: './curtain-container.component.html',
+    styleUrls: ['./curtain-container.component.scss'],
     standalone: true,
+    imports: [CommonModule],
+    animations: [
+        trigger('hiddenCurtain', [
+            transition('void => *', [style({right: '-600px'}), animate('0.1s', style({right: '0px'}))]),
+            transition('* => void', [animate('0.1s', style({right: '-600px'}))]),
+        ]),
+    ],
 })
-export class CurtainContainerComponent implements OnInit {
-    @ViewChild("curtiainContainer", {
-        read: ViewContainerRef,
-    })
-    curtiainContainer: ViewContainerRef;
+export class CurtainContainerComponent {
+    private overlaySub: Subscription = Subscription.EMPTY;
 
-    title: string | null = null;
-    @HostBinding("class.visible")
-    visible = false;
+    readonly curtains$ = this.curtainService.curtains$.pipe(
+        tap(curtains => {
+            if (curtains.length > 0) {
+                this.overlayService.open();
+                this.overlaySub.unsubscribe();
 
-    readonly showCurtain$ = this.curtainService.showCurtain$;
-    private component: ComponentRef<any>;
-
-    private readonly destroyed$ = new ReplaySubject<boolean>(1);
-    private readonly closed$ = new Subject<boolean>();
+                this.overlaySub = this.overlayService.overlayClicked$.subscribe(() => {
+                    curtains[curtains.length - 1].completeWith(null);
+                });
+            } else {
+                this.overlayService.close();
+                this.overlaySub.unsubscribe();
+            }
+        }),
+    );
 
     constructor(
         private readonly curtainService: CurtainService,
-        private readonly overlayService: OverlayService
+        private readonly overlayService: OverlayService,
     ) {}
-
-    ngOnInit(): void {
-        this.showCurtain$
-            .pipe(takeUntil(this.destroyed$))
-            .subscribe((curtain) => {
-                this.title = curtain.title;
-                this.visible = true;
-
-                this.component = this.curtiainContainer.createComponent(
-                    curtain.tpl
-                );
-
-                this.overlayService.overlayClicked$
-                    .pipe(takeUntil(this.closed$), take(1))
-                    .subscribe(() => {
-                        this.close();
-                    });
-            });
-    }
-
-    close() {
-        this.visible = false;
-        this.overlayService.showOverlay(false);
-        this.closed$.next(true);
-
-        setTimeout(() => {
-            this.title = null;
-            this.component.destroy();
-        }, 300);
-    }
-
-    ngOnDestroy(): void {
-        this.destroyed$.next(true);
-    }
 }
