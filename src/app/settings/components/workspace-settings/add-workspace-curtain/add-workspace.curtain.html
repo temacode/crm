@@ -1,0 +1,7 @@
+<form [formGroup]="addWorkspaceForm">
+    <p>Придумайте название и описание для воркспейса</p>
+    <app-input-control formControlName="title" placeholder="Название"></app-input-control>
+    <app-input-control formControlName="description" placeholder="Описание"></app-input-control>
+
+    <app-button buttonType="submit" size="l" (click)="submit()">Отправить</app-button>
+</form>

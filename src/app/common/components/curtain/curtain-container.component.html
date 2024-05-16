@@ -7,8 +7,11 @@
             </div>
         </div>
 
-        <div class="curtain__content">
-            <ng-template #curtiainContainer></ng-template>
+        <div *ngIf="curtain.tpl" class="curtain__content">
+            <ng-container
+                [ngComponentOutlet]="curtain.tpl"
+                [ngComponentOutletInputs]="{completeWith: curtain.completeWith}"
+            ></ng-container>
         </div>
     </div>
 </ng-container>

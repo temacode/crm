@@ -1,0 +1,40 @@
+:host {
+    display: block;
+}
+
+.workspace {
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 12px;
+    min-width: 0;
+
+    &__list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+
+        p {
+            font-size: 18px;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+    }
+
+    &__description {
+        color: #565656;
+        margin-top: 4px;
+        font-size: 14px;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+
+    &__add {
+        margin-top: 20px;
+    }
+}

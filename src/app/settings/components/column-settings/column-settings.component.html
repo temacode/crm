@@ -1,0 +1,27 @@
+<table #table dropzone="move" (dragover)="dragover($event)" (drop)="drop($event)">
+    <tr>
+        <td>#</td>
+        <td>Название колонки</td>
+    </tr>
+    <tr
+        *ngFor="let column of columns$ | async; let i = index"
+        #columnItem
+        [id]="column.id"
+        (dragend)="dragend($event)"
+        (dragstart)="dragstart($event)"
+    >
+        <td>{{ column.id }}</td>
+        <td>{{ column.title }}</td>
+        <td>
+            <div #dragButton class="column-settings" (mousedown)="makeDraggable(column.id, i)">
+                <i class="fa-solid fa-up-down"></i>
+            </div>
+        </td>
+        <td>
+            <div tabindex="0" class="column-settings" (click)="deleteColumn(column.id)">
+                <i class="fa-solid fa-square-minus"></i>
+            </div>
+        </td>
+    </tr>
+</table>
+<app-button appearance="outline" size="s" class="add-button" (click)="addColumn()">Добавить колонку</app-button>

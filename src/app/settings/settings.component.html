@@ -1,42 +1,23 @@
 <section class="content">
-    <p
-        routerLink="/"
-        class="back"
-    >
+    <p routerLink="/" class="back">
         <i class="fa-solid fa-chevron-left"></i>
         На гравную
     </p>
     <h1>Настройки</h1>
     <div class="row">
         <div class="menu">
-            <app-button
-                appearance="flat"
-                size="lg"
-            >
-                Основные настройки
-            </app-button>
-            <app-button
-                appearance="regular"
-                size="lg"
-            >
-                Канбан
-            </app-button>
+            <app-button appearance="outline" size="l">Основные настройки</app-button>
+            <app-button appearance="regular" size="l">Канбан</app-button>
         </div>
         <div class="settings-content">
             <h3 class="settings-content__title">Основное</h3>
             <p>Основные настройки для канбан-доски</p>
-            <h3 class="settings-content__title">Воркспейсы</h3>
+            <h3 class="settings-content__title">Рабочие пространства</h3>
             <app-workspace-settings></app-workspace-settings>
             <h3 class="settings-content__title">Колонки</h3>
             <app-column-settings></app-column-settings>
             <h3 class="settings-content__title">Задачи</h3>
-            <app-button
-                appearance="flat"
-                size="sm"
-                (click)="test()"
-            >
-                Добавить задачу
-            </app-button>
+            <app-button appearance="outline" size="s" (click)="test()">Добавить задачу</app-button>
         </div>
     </div>
 </section>

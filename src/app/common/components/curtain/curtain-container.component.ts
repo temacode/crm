@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ViewChild, ViewContainerRef} from '@angular/core';
 import {CurtainService} from '../../services/curtain.service';
 import {CommonModule} from '@angular/common';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {OverlayService} from '../../services/overlay.service';
 import {Subscription, tap} from 'rxjs';
 
@@ -19,6 +19,11 @@ import {Subscription, tap} from 'rxjs';
     ],
 })
 export class CurtainContainerComponent {
+    @ViewChild('curtiainContainer', {
+        read: ViewContainerRef,
+    })
+    curtiainContainer: ViewContainerRef;
+
     private overlaySub: Subscription = Subscription.EMPTY;
 
     readonly curtains$ = this.curtainService.curtains$.pipe(

@@ -6,31 +6,18 @@
             <strong>можно и жирным</strong>
         </p>
     </div>
-    <form [formGroup]="form" class="form">
-        <app-input-control
-            formControlName="email"
-            type="email"
-            placeholder="Email"
-        >
-        </app-input-control>
+    <form class="form" [formGroup]="form">
+        <app-input-control formControlName="email" placeholder="Email" type="email"></app-input-control>
 
         <app-input-control
-            formControlName="password"
-            type="password"
             autocomplete="password"
+            formControlName="password"
             placeholder="Введите пароль"
-        >
-        </app-input-control>
+            type="password"
+        ></app-input-control>
 
-        <app-button buttonType="submit" (click)="login()" size="lg">
-            Войти</app-button
-        >
-        <app-button
-            buttonType="link"
-            size="lg"
-            routerLink="/auth/register"
-            appearance="flat"
-        >
+        <app-button buttonType="submit" size="l" (click)="login()">Войти</app-button>
+        <app-button appearance="outline" buttonType="link" routerLink="/auth/register" size="l">
             Создать аккаунт
         </app-button>
     </form>

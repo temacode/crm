@@ -1,11 +1,12 @@
 <button
     class="default"
-    [type]="buttonType"
-    [class.size-sm]="size === 'sm'"
-    [class.size-md]="size === 'md'"
-    [class.size-lg]="size === 'lg'"
-    [class.regular]="appearance === 'regular'"
     [class.flat]="appearance === 'flat'"
+    [class.outline]="appearance === 'outline'"
+    [class.regular]="appearance === 'regular'"
+    [class.size-lg]="size === 'l'"
+    [class.size-md]="size === 'm'"
+    [class.size-sm]="size === 's'"
+    [type]="buttonType"
 >
     <ng-content></ng-content>
 </button>

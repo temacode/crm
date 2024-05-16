@@ -6,56 +6,38 @@
             <strong>можно и жирным</strong>
         </p>
     </div>
-    <form [formGroup]="form" class="form">
+    <form class="form" [formGroup]="form">
         <div class="input-group">
-            <app-input-control
-                placeholder="Имя"
-                autocomplete="given-name"
-                formControlName="name"
-            ></app-input-control>
+            <app-input-control autocomplete="given-name" formControlName="name" placeholder="Имя"></app-input-control>
 
             <app-input-control
-                placeholder="Фамилия"
                 autocomplete="family-name"
                 formControlName="surname"
+                placeholder="Фамилия"
             ></app-input-control>
         </div>
 
-        <app-input-control
-            placeholder="Придумайте ник"
-            formControlName="nickname"
-        ></app-input-control>
+        <app-input-control formControlName="nickname" placeholder="Придумайте ник"></app-input-control>
+
+        <app-input-control formControlName="email" placeholder="Email" type="email"></app-input-control>
 
         <app-input-control
-            placeholder="Email"
-            type="email"
-            formControlName="email"
-        ></app-input-control>
-
-        <app-input-control
-            placeholder="Введите пароль"
-            type="password"
             autocomplete="new-password"
             formControlName="password"
+            placeholder="Введите пароль"
+            type="password"
         ></app-input-control>
 
         <app-input-control
-            placeholder="Повторите пароль"
-            type="password"
             autocomplete="new-password"
             formControlName="passwordRepeat"
+            placeholder="Повторите пароль"
+            type="password"
         ></app-input-control>
 
-        <app-button buttonType="submit" (click)="register()" size="lg">
-            Зарегистрироваться
-        </app-button>
+        <app-button buttonType="submit" size="l" (click)="register()">Зарегистрироваться</app-button>
 
-        <app-button
-            buttonType="button"
-            routerLink="/auth/login"
-            appearance="flat"
-            size="lg"
-        >
+        <app-button appearance="outline" buttonType="button" routerLink="/auth/login" size="l">
             Уже есть аккаунт?
         </app-button>
     </form>

@@ -2,7 +2,7 @@
 
 <div class="controls">
     <p class="greeting">Добрый день, {{ (user$ | async)?.name }}</p>
-    <app-button appearance="flat" (click)="navigateToSettings()">
+    <app-button appearance="outline" (click)="navigateToSettings()">
         <i class="fa-solid fa-gear"></i>
     </app-button>
     <app-button (click)="logout()">Выйти</app-button>

@@ -1,0 +1,17 @@
+<div class="workspace__list">
+    <ng-container *ngFor="let workspace of workspaces$ | async">
+        <div class="workspace">
+            <div class="workspace__title">
+                <p class="">{{ workspace.title }}</p>
+                <app-button appearance="flat" (click)="deleteWorkspace(workspace.id)">
+                    <i class="fa-solid fa-xmark"></i>
+                </app-button>
+            </div>
+            <p class="workspace__description">{{ workspace.description }}</p>
+        </div>
+    </ng-container>
+</div>
+
+<app-button appearance="outline" size="s" class="workspace__add" (click)="createWorkspace()">
+    Создать воркспейс
+</app-button>

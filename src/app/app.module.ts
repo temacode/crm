@@ -1,23 +1,22 @@
-import {APP_BASE_HREF, CommonModule} from "@angular/common";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AppComponent} from "./app.component";
-import {AppService} from "./app.service";
-import {AppRoutingModule} from "./app-routing.module";
-import {AuthService} from "./auth/services/auth.service";
-import {ButtonComponent} from "./button/button.component";
+import {APP_BASE_HREF, CommonModule} from '@angular/common';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AppComponent} from './app.component';
+import {AppService} from './app.service';
+import {AppRoutingModule} from './app-routing.module';
+import {AuthService} from './auth/services/auth.service';
+import {ButtonComponent} from './button/button.component';
 import {
     ApiInterceptor,
     CurtainContainerComponent,
     NotificationsComponent,
     OverlayContainerComponent,
     TokenInterceptor,
-} from "./common";
-import {HeaderComponent} from "./header/header.component";
-import {KanbanModule} from "./kanban/kanban.module";
-import {ErrorInterceptor} from "./common/interceptors/error.interceptor";
+} from './common';
+import {HeaderComponent} from './header/header.component';
+import {KanbanModule} from './kanban/kanban.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -46,11 +45,6 @@ import {ErrorInterceptor} from "./common/interceptors/error.interceptor";
         }, */
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptor,
-            multi: true,
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
             useClass: ApiInterceptor,
             multi: true,
         },
@@ -61,7 +55,7 @@ import {ErrorInterceptor} from "./common/interceptors/error.interceptor";
         },
         {
             provide: APP_BASE_HREF,
-            useValue: "/",
+            useValue: '/',
         },
     ],
     bootstrap: [AppComponent],

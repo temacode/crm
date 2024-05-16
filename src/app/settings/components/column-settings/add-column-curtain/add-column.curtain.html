@@ -1,0 +1,6 @@
+<form [formGroup]="addColumnForm">
+    <p>Придумайте название для колонки и укажите ее место относительно других</p>
+    <app-input-control formControlName="title" placeholder="Название колонки"></app-input-control>
+
+    <app-button buttonType="submit" size="l" (click)="submit()">Отправить</app-button>
+</form>

@@ -1,0 +1,12 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    height: 100%;
+
+    p {
+        line-height: 150%;
+    }
+}
